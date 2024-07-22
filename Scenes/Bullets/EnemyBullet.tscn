@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://cmbrb76yupwl7"]
+
+[ext_resource type="Texture2D" uid="uid://dnfkkv7osderq" path="res://icon.svg" id="1_54tko"]
+[ext_resource type="Script" path="res://Scenes/Bullets/EnemyBullet.cs" id="1_fe1gf"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ryww1"]
+radius = 1.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p5gya"]
+radius = 17.0
+height = 34.0
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_fe1gf")
+speed = 700.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ryww1")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0.0313726, 0.121569, 1)
+scale = Vector2(0.242187, 0.242187)
+texture = ExtResource("1_54tko")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CapsuleShape2D_p5gya")
+
+[connection signal="timeout" from="Timer" to="." method="OnTimerTimeout"]
+[connection signal="body_entered" from="Area2D" to="." method="OnBodyEntered"]

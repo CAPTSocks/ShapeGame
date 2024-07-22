@@ -1,0 +1,34 @@
+[gd_scene load_steps=8 format=3 uid="uid://w2th2gtum5j3"]
+
+[ext_resource type="Texture2D" uid="uid://b6yr6psdyfu07" path="res://Sprites/PlayerHealthBar/EmptyBar.png" id="1_t8o7c"]
+[ext_resource type="Texture2D" uid="uid://bntmvjsk5evg0" path="res://Sprites/PlayerHealthBar/FullBar.png" id="2_86hie"]
+[ext_resource type="Script" path="res://Scripts/Player/PlayerHealthBar.cs" id="2_spf6g"]
+[ext_resource type="Texture2D" uid="uid://bg6dam5g6hn3g" path="res://Sprites/PlayerHealthBar/HalfBar.png" id="4_puxta"]
+[ext_resource type="Texture2D" uid="uid://dkbdluip3pw5y" path="res://Sprites/PlayerHealthBar/LowBar.png" id="5_uso5e"]
+[ext_resource type="Texture2D" uid="uid://cahf4j2drc6y0" path="res://Sprites/PlayerHealthBar/ReallyLowBar.png" id="6_oud51"]
+[ext_resource type="Texture2D" uid="uid://cnlv07hhp3hei" path="res://Sprites/PlayerHealthBar/FlashBar.png" id="7_1kc67"]
+
+[node name="EmptyHealthBar" type="Sprite2D"]
+texture_filter = 1
+scale = Vector2(1.348, 1)
+texture = ExtResource("1_t8o7c")
+script = ExtResource("2_spf6g")
+fullHealth = ExtResource("2_86hie")
+HalfHealth = ExtResource("4_puxta")
+quarterHealth = ExtResource("5_uso5e")
+lowHealth = ExtResource("6_oud51")
+flashHealthTexture = ExtResource("7_1kc67")
+
+[node name="HealthBar" type="TextureProgressBar" parent="."]
+texture_filter = 1
+offset_left = -125.371
+offset_top = -25.0
+offset_right = 124.629
+offset_bottom = 25.0
+value = 100.0
+texture_progress = ExtResource("2_86hie")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.3
+
+[connection signal="timeout" from="Timer" to="." method="Flash"]

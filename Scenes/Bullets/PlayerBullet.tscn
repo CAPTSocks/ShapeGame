@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://bwrtu1fomx2qt"]
+
+[ext_resource type="Script" path="res://Scripts/Bullets/PlayerBullet.cs" id="1_3w5uk"]
+[ext_resource type="Texture2D" uid="uid://dnfkkv7osderq" path="res://icon.svg" id="2_gsqks"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bfcey"]
+radius = 12.0
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+modulate = Color(0.615686, 0.694118, 0, 1)
+motion_mode = 1
+script = ExtResource("1_3w5uk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.160156, 0.160156)
+texture = ExtResource("2_gsqks")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_bfcey")
+disabled = true
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_bfcey")
+
+[connection signal="timeout" from="Timer" to="." method="OnTimerTimeout"]
+[connection signal="body_entered" from="Area2D" to="." method="OnBodyEntered"]

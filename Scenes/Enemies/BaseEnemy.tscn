@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://cgrmokhihva48"]
+
+[ext_resource type="Script" path="res://Scripts/Enemies/BaseEnemy.cs" id="1_uigo7"]
+[ext_resource type="Texture2D" uid="uid://dnfkkv7osderq" path="res://icon.svg" id="2_0nrej"]
+[ext_resource type="PackedScene" uid="uid://cmbrb76yupwl7" path="res://Scenes/Bullets/EnemyBullet.tscn" id="2_uaeom"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_v4g4e"]
+radius = 71.0
+height = 148.0
+
+[node name="Enemy" type="CharacterBody2D" groups=["Enemy"]]
+collision_layer = 2
+collision_mask = 2
+motion_mode = 1
+script = ExtResource("1_uigo7")
+shotDelay = 2.5
+bullet = ExtResource("2_uaeom")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0.380392, 0.380392, 1)
+texture = ExtResource("2_0nrej")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_v4g4e")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.5
+
+[connection signal="timeout" from="Timer" to="." method="TimeOut"]

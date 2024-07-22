@@ -1,0 +1,87 @@
+[gd_scene load_steps=7 format=3 uid="uid://bdf4pv8d5tark"]
+
+[ext_resource type="PackedScene" uid="uid://45ixu3g78368" path="res://Scenes/Player.tscn" id="1_hucya"]
+[ext_resource type="PackedScene" uid="uid://w2th2gtum5j3" path="res://Scenes/Player/PlayerHealthBar.tscn" id="4_a2dk8"]
+[ext_resource type="Script" path="res://Scripts/FPSCounter.cs" id="4_h0a7w"]
+[ext_resource type="Script" path="res://Scenes/EnemyGoal.cs" id="5_ge50q"]
+[ext_resource type="PackedScene" uid="uid://cgrmokhihva48" path="res://Scenes/Enemies/BaseEnemy.tscn" id="5_pm3el"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e3lg3"]
+size = Vector2(1200, 20)
+
+[node name="Main" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_hucya")]
+position = Vector2(600, 2250)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_right = 153.0
+offset_bottom = 84.0
+theme_override_colors/default_color = Color(0, 0.94902, 0.890196, 1)
+theme_override_font_sizes/normal_font_size = 60
+theme_override_font_sizes/bold_font_size = 0
+text = "60"
+tab_size = 6
+script = ExtResource("4_h0a7w")
+
+[node name="Enemy" parent="." instance=ExtResource("5_pm3el")]
+position = Vector2(616, -451)
+
+[node name="Enemy2" parent="." instance=ExtResource("5_pm3el")]
+position = Vector2(906, -457)
+
+[node name="Enemy3" parent="." instance=ExtResource("5_pm3el")]
+position = Vector2(290, -453)
+shotDelay = 2.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="EmptyHealthBar" parent="CanvasLayer" instance=ExtResource("4_a2dk8")]
+position = Vector2(200, 2450)
+
+[node name="Score" type="RichTextLabel" parent="CanvasLayer"]
+offset_left = 1024.0
+offset_top = 2442.0
+offset_right = 1064.0
+offset_bottom = 2482.0
+text = "100"
+
+[node name="Time" type="RichTextLabel" parent="CanvasLayer"]
+offset_left = 579.0
+offset_top = 2442.0
+offset_right = 619.0
+offset_bottom = 2482.0
+text = "1:00
+"
+
+[node name="EnemyGoal" type="Node2D" parent="."]
+position = Vector2(0, 2000)
+script = ExtResource("5_ge50q")
+
+[node name="Area2D" type="Area2D" parent="EnemyGoal"]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyGoal/Area2D"]
+position = Vector2(600, 10)
+shape = SubResource("RectangleShape2D_e3lg3")
+
+[node name="Left" type="Node2D" parent="."]
+position = Vector2(190, -351)
+
+[node name="Middle" type="Node2D" parent="Left"]
+position = Vector2(410, 0)
+
+[node name="Right" type="Node2D" parent="Left"]
+position = Vector2(800, 0)
+
+[node name="AIrcraftLeft" type="Node2D" parent="Left"]
+position = Vector2(200, 0)
+
+[node name="AircraftRight" type="Node2D" parent="Left"]
+position = Vector2(600, 0)
+
+[connection signal="HealthChanged" from="Player/HealthComponent" to="CanvasLayer/EmptyHealthBar" method="OnPlayerHealthChanged"]
+[connection signal="body_entered" from="EnemyGoal/Area2D" to="EnemyGoal" method="OnBodyEntered"]
+
+[editable path="Player"]
