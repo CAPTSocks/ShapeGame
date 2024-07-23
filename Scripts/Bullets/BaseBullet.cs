@@ -21,10 +21,12 @@ public partial class BaseBullet : CharacterBody2D
 		QueueFree();
 	}
 
-    public void setMoveDirection(Vector2 spawnPos, Vector2 moveTowardsPos)
+    public void SetupBullet(Vector2 spawnPos, Vector2 moveTowardsPos, int newDamage, float newSpeed)
 	{
 		Position = spawnPos;
 		moveDirection = Position.DirectionTo(moveTowardsPos);
+		damage = newDamage;
+		speed = newSpeed;
 	}
 
 	public override void _PhysicsProcess(double delta)

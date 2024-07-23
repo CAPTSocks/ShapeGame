@@ -14,6 +14,8 @@ public partial class PlayerController : CharacterBody2D
 	private float moveSpeed = 100f;
 	[Export]
 	private float moveDistance = 300f;
+	[Export] private int bulletDamage = -10;
+	[Export] private float bulletSpeed = 1000;
 
 	private Timer shootTimer;
 
@@ -61,7 +63,7 @@ public partial class PlayerController : CharacterBody2D
 	private void Shoot(Vector2 pos)
 	{
 		var newBullet = bullet.Instantiate<PlayerBullet>();
-		newBullet.setMoveDirection(Position, pos);
+		newBullet.SetupBullet(Position, pos, bulletDamage, bulletSpeed);
 		GetParent().AddChild(newBullet);
 	}
 

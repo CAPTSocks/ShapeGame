@@ -1,14 +1,14 @@
 using System;
-using System.Diagnostics;
 using Godot;
 
 public partial class BaseEnemy : CharacterBody2D
 {
 	[Export]
 	private float Speed = 300.0f;
+	[Export] protected int health = 10, damage = -5;
+	[Export] private float bulletSpeed = 1000;
 	[Export] private float shotDelay = 1f;
-	[Export]
-	private PackedScene bullet;
+	[Export] private PackedScene bullet;
 	private Node2D target;
 	private Timer timer;
 	private bool FirstSetup = true, reachedEnd = false;
@@ -30,15 +30,14 @@ public partial class BaseEnemy : CharacterBody2D
 
 	public void SetupEnemy()
 	{
-		timer.WaitTime = random.RandfRange(1.5f, 5f);
-		GD.Print(timer.WaitTime);
+		timer.WaitTime = random.RandfRange(1.5f, 4f);
 		timer.Start();
 	}
 
 	private void Shoot()
 	{
 		var newBullet = bullet.Instantiate<EnemyBullet>();
-		newBullet.setMoveDirection(Position, target.Position);
+		newBullet.SetupBullet(Position, target.Position, damage, bulletSpeed);
 		GetParent().AddChild(newBullet);
 	}
 
@@ -58,7 +57,6 @@ public partial class BaseEnemy : CharacterBody2D
 				break;
 
 			case EnemyStates.ended:
-				GD.Print("Im die");
 				QueueFree();
 				break;
 		}
