@@ -5,7 +5,7 @@ public partial class BaseEnemy : CharacterBody2D
 {
 	[Export]
 	private float Speed = 300.0f;
-	[Export] protected int health = 10, damage = -5;
+	[Export] protected int health = 10, damage = -5, scoreAmount = 25;
 	[Export] private float bulletSpeed = 1000;
 	[Export] private float shotDelay = 1f;
 	[Export] private PackedScene bullet;
@@ -19,6 +19,8 @@ public partial class BaseEnemy : CharacterBody2D
 		shooting,
 		ended
 	}
+
+	public int ScoreAmount { get {return scoreAmount;} }
 	private EnemyStates currentState = EnemyStates.started;
 
 	public override void _Ready()
@@ -57,6 +59,8 @@ public partial class BaseEnemy : CharacterBody2D
 				break;
 
 			case EnemyStates.ended:
+				var gm = (GM)GetNode("/root/Gm");
+				gm.EmitSignal("ScoreUpdate", -25);
 				QueueFree();
 				break;
 		}
@@ -66,7 +70,7 @@ public partial class BaseEnemy : CharacterBody2D
 	{
 		timer.Stop();
 		currentState = EnemyStates.ended;
-		timer.WaitTime = 5f;
+		timer.WaitTime = 4f;
 		timer.Start();
 	}
 

@@ -26,27 +26,29 @@ text = "60"
 tab_size = 6
 script = ExtResource("4_h0a7w")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="HUD" type="CanvasLayer" parent="."]
 script = ExtResource("3_0pg48")
 
-[node name="EmptyHealthBar" parent="CanvasLayer" instance=ExtResource("4_a2dk8")]
+[node name="EmptyHealthBar" parent="HUD" instance=ExtResource("4_a2dk8")]
 position = Vector2(200, 2450)
 
-[node name="Score" type="RichTextLabel" parent="CanvasLayer"]
-offset_left = 1022.0
+[node name="Score" type="RichTextLabel" parent="HUD"]
+offset_left = 862.0
 offset_top = 2426.0
-offset_right = 1087.0
+offset_right = 1188.0
 offset_bottom = 2477.0
 theme_override_font_sizes/normal_font_size = 35
-text = "100"
+bbcode_enabled = true
+text = "[center]00"
 
-[node name="Time" type="RichTextLabel" parent="CanvasLayer"]
+[node name="Time" type="RichTextLabel" parent="HUD"]
 offset_left = 562.0
 offset_top = 2427.0
 offset_right = 665.0
 offset_bottom = 2476.0
 theme_override_font_sizes/normal_font_size = 35
-text = "1:00
+bbcode_enabled = true
+text = "[center]1:00
 "
 fit_content = true
 
@@ -84,7 +86,7 @@ position = Vector2(790, -351)
 
 [node name="SpawnTimer" type="Timer" parent="EnemySpawnManager"]
 
-[connection signal="HealthChanged" from="Player/HealthComponent" to="CanvasLayer/EmptyHealthBar" method="OnPlayerHealthChanged"]
+[connection signal="HealthChanged" from="Player/HealthComponent" to="HUD/EmptyHealthBar" method="OnPlayerHealthChanged"]
 [connection signal="body_entered" from="EnemyGoal/Area2D" to="EnemyGoal" method="OnBodyEntered"]
 [connection signal="timeout" from="EnemySpawnManager/SpawnTimer" to="EnemySpawnManager" method="SpawnEnemy"]
 
