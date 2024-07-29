@@ -1,15 +1,91 @@
-[gd_scene load_steps=6 format=3 uid="uid://45ixu3g78368"]
+[gd_scene load_steps=13 format=3 uid="uid://45ixu3g78368"]
 
 [ext_resource type="Script" path="res://Scripts/PlayerController.cs" id="1_dexna"]
 [ext_resource type="PackedScene" uid="uid://bwrtu1fomx2qt" path="res://Scenes/Bullets/PlayerBullet.tscn" id="2_fkbem"]
-[ext_resource type="Texture2D" uid="uid://dnfkkv7osderq" path="res://icon.svg" id="3_n8nqs"]
+[ext_resource type="Texture2D" uid="uid://vnyepuwyc4ai" path="res://Sprites/Enemies/Helicopter/HelicopterBody.png" id="3_4163j"]
 [ext_resource type="Script" path="res://Scenes/PlayerHealthComponent.cs" id="4_jitfv"]
+[ext_resource type="Texture2D" uid="uid://r75m1g1s0l22" path="res://Sprites/Enemies/Helicopter/HelicopterRotor.png" id="4_rrm3s"]
+[ext_resource type="Script" path="res://Scripts/Player/RotorRotate.cs" id="5_xoliv"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_se8e1"]
-radius = 65.0
-height = 132.0
+radius = 31.8182
+height = 143.636
+
+[sub_resource type="Animation" id="Animation_11rv6"]
+resource_name = "TurnRight"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Helicopter:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.122173]
+}
+
+[sub_resource type="Animation" id="Animation_gwm6o"]
+resource_name = "TurnLeft"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Helicopter:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -0.122173]
+}
+
+[sub_resource type="Animation" id="Animation_xtegi"]
+resource_name = "StraightFromLeft"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Helicopter:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.122173, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_slg26"]
+resource_name = "StraightFromRight"
+length = 0.1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Helicopter:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.122173, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fhp7v"]
+_data = {
+"StraightFromLeft": SubResource("Animation_xtegi"),
+"StraightFromRight": SubResource("Animation_slg26"),
+"TurnLeft": SubResource("Animation_gwm6o"),
+"TurnRight": SubResource("Animation_11rv6")
+}
 
 [node name="Player" type="CharacterBody2D"]
+scale = Vector2(2.2, 2.2)
 motion_mode = 1
 script = ExtResource("1_dexna")
 bullet = ExtResource("2_fkbem")
@@ -17,8 +93,16 @@ moveSpeed = 2500.0
 moveDistance = 225.0
 bulletSpeed = 1400.0
 
-[node name="Icon" type="Sprite2D" parent="."]
-texture = ExtResource("3_n8nqs")
+[node name="Helicopter" type="Sprite2D" parent="."]
+texture = ExtResource("3_4163j")
+offset = Vector2(3, 0)
+
+[node name="Rotors" type="Sprite2D" parent="Helicopter"]
+position = Vector2(0, -18.6364)
+texture = ExtResource("4_rrm3s")
+offset = Vector2(3, 19)
+script = ExtResource("5_xoliv")
+rotateSpeed = 450.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_se8e1")
@@ -30,4 +114,10 @@ one_shot = true
 [node name="HealthComponent" type="Node2D" parent="."]
 script = ExtResource("4_jitfv")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_fhp7v")
+}
+
 [connection signal="timeout" from="ShootTimer" to="." method="Timeout"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="animationFinished"]

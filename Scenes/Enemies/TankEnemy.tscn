@@ -1,34 +1,92 @@
-[gd_scene load_steps=5 format=3 uid="uid://c0u00kdd17nye"]
+[gd_scene load_steps=10 format=3 uid="uid://c0u00kdd17nye"]
 
-[ext_resource type="Script" path="res://Scripts/Enemies/BaseEnemy.cs" id="1_n04t0"]
+[ext_resource type="Script" path="res://Scripts/Enemies/TankEnemy.cs" id="1_p0sb8"]
 [ext_resource type="PackedScene" uid="uid://cmbrb76yupwl7" path="res://Scenes/Bullets/EnemyBullet.tscn" id="2_sg6nn"]
-[ext_resource type="Texture2D" uid="uid://dnfkkv7osderq" path="res://icon.svg" id="3_phexp"]
+[ext_resource type="Texture2D" uid="uid://bwdtydjstyus1" path="res://Sprites/Enemies/Tank/TankBody.png" id="3_b6pb2"]
+[ext_resource type="Script" path="res://Scripts/Enemies/EnemyHealthComponent.cs" id="4_8pq12"]
+[ext_resource type="Texture2D" uid="uid://bv377dbrm31ov" path="res://Sprites/Enemies/Tank/TankTurret.png" id="4_xic0w"]
+[ext_resource type="Texture2D" uid="uid://bdfa1pwy5fqkn" path="res://Sprites/Enemies/Tank/Explosion/Explosion.png" id="5_l0lr7"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_v4g4e"]
-radius = 71.0
-height = 148.0
+radius = 70.002
+height = 212.0
+
+[sub_resource type="Animation" id="Animation_ydowe"]
+resource_name = "SotExplosion"
+length = 0.31
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TankBody/TankTurret/Explosion:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.03, 0.06, 0.09, 0.12, 0.15, 0.18, 0.21, 0.24, 0.27, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6llrm"]
+_data = {
+"SotExplosion": SubResource("Animation_ydowe")
+}
 
 [node name="TankEnemy" type="CharacterBody2D" groups=["Enemy"]]
 collision_layer = 2
 collision_mask = 2
 motion_mode = 1
-script = ExtResource("1_n04t0")
+script = ExtResource("1_p0sb8")
 Speed = 275.0
-health = 30
 damage = -10
 scoreAmount = 50
 bulletSpeed = 800.0
 shotDelay = 2.5
 bullet = ExtResource("2_sg6nn")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(1, 0.380392, 0.380392, 1)
-texture = ExtResource("3_phexp")
+[node name="TankBody" type="Sprite2D" parent="."]
+rotation = 3.14159
+scale = Vector2(2.8, 2.8)
+texture = ExtResource("3_b6pb2")
+
+[node name="TankTurret" type="Sprite2D" parent="TankBody"]
+position = Vector2(0, 9.64912)
+texture = ExtResource("4_xic0w")
+offset = Vector2(0, -10)
+
+[node name="Explosion" type="Sprite2D" parent="TankBody/TankTurret"]
+position = Vector2(-1.07143, -51.0777)
+texture = ExtResource("5_l0lr7")
+hframes = 11
+frame = 10
+
+[node name="BulletSpawnNode" type="Node2D" parent="TankBody/TankTurret"]
+position = Vector2(-3.6218e-06, -51.0777)
+rotation = 3.14159
+scale = Vector2(0.357143, 0.357143)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -30)
+rotation = 0.0021186
 shape = SubResource("CapsuleShape2D_v4g4e")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 1.5
 
+[node name="HealthComp" type="Node2D" parent="."]
+script = ExtResource("4_8pq12")
+health = 30
+hitColor = Color(0.670588, 0, 0.188235, 1)
+
+[node name="HitTimer" type="Timer" parent="HealthComp"]
+wait_time = 0.1
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_6llrm")
+}
+
 [connection signal="timeout" from="Timer" to="." method="TimeOut"]
+[connection signal="timeout" from="HealthComp/HitTimer" to="HealthComp" method="HitTimerOut"]

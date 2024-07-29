@@ -20,11 +20,11 @@ public partial class PlayerHealthComponent : Node2D
 		health += incrementAmount;
 		Mathf.Clamp(health, 0, maxHealth);
 		EmitSignal(SignalName.HealthChanged, health);
-		GD.Print(health);
 		if (health == 0)
 		{
 			Die();
 		}
+
 	}
 
 	private void Die()

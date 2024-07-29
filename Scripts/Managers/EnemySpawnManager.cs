@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public partial class EnemySpawnManager : Node
 {
 	[Export] private PackedScene baseEnemy;
+	[Export] private PackedScene healtWrench;
 	[Export] private float spawnDelay;
 	private Node2D leftSpawner, middleSpawner, rightSpawner, leftAircraftSpawner, rightAircraftSpawner;
 	private List<Node2D> spawners = new List<Node2D>();
@@ -29,6 +30,14 @@ public partial class EnemySpawnManager : Node
 
 	private void SpawnEnemy()
 	{
+		int randomNum = random.RandiRange(0, 100);
+		GD.Print("Random health Number " + randomNum);
+		if (randomNum <= 10)
+		{
+			SpawnHealthItem();
+			return; 
+		}
+
 		var spawnedEnemy = baseEnemy.Instantiate<BaseEnemy>();
 		spawnedEnemy.GlobalPosition = spawners[PickSpawner()].GlobalPosition;
 		GetParent().AddChild(spawnedEnemy);
@@ -43,8 +52,16 @@ public partial class EnemySpawnManager : Node
 	private int PickSpawner()
 	{
 		int spawner = (int)random.RandiRange(0, 2);
-		//GD.Print(spawner);
 		return spawner;
+	}
+
+	private void SpawnHealthItem()
+	{
+		int randomSpawner = PickSpawner();
+		var spawnedWrench = healtWrench.Instantiate<HealthWrench>();
+		spawnedWrench.GlobalPosition = spawners[randomSpawner].GlobalPosition;
+		GetParent().AddChild(spawnedWrench);
+
 	}
 
 	public override void _Process(double delta)

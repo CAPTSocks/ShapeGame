@@ -8,6 +8,7 @@ public partial class PlayerController : CharacterBody2D
 	private Vector2 moveToPos;
 	private bool canMove = false;
 	private bool swipe = false;
+	private AnimationPlayer anim;
 	[Export]
 	private PackedScene bullet;
 	[Export]
@@ -23,6 +24,7 @@ public partial class PlayerController : CharacterBody2D
 	{
 		GD.Print("test");
 		shootTimer = GetNode<Timer>("ShootTimer");
+		anim = GetNode<AnimationPlayer>("AnimationPlayer");
 	}
 
 	private void Timeout()
@@ -69,18 +71,33 @@ public partial class PlayerController : CharacterBody2D
 
 	private void Move()
 	{
-		//Move Right
+		//Move Left
 		if (startPressPos.X > endPressPos.X)
 		{
 			moveToPos = new Vector2(this.Position.X - moveDistance, this.Position.Y);
 			canMove = true;
+			anim.Play("TurnLeft");
 		}
-
-		//Move Left
+		
+		//Move Right
 		if (startPressPos.X < endPressPos.X)
 		{
 			moveToPos = new Vector2(this.Position.X + moveDistance, this.Position.Y);
 			canMove = true;
+			
+			anim.Play("TurnRight");
+		}
+	}
+
+	private void animationFinished(StringName name)
+	{
+		if (name == "TurnRight")
+		{
+			anim.Play("StraightFromRight");
+		}
+		else if (name == "TurnLeft")
+		{
+			anim.Play("StraightFromLeft");
 		}
 	}
 

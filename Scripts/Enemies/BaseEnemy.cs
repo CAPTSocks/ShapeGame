@@ -3,16 +3,17 @@ using Godot;
 
 public partial class BaseEnemy : CharacterBody2D
 {
-	[Export]
-	private float Speed = 300.0f;
-	[Export] protected int health = 10, damage = -5, scoreAmount = 25;
+	[Export] private float Speed = 300.0f;
+	[Export] protected int damage = -5, scoreAmount = 25;
 	[Export] private float bulletSpeed = 1000;
 	[Export] private float shotDelay = 1f;
 	[Export] private PackedScene bullet;
-	private Node2D target;
+	protected Node2D target, bulletSpawn;
+	private PlayerHealthComponent healthComponent;
 	private Timer timer;
 	private bool FirstSetup = true, reachedEnd = false;
 	private RandomNumberGenerator random = new RandomNumberGenerator();
+	private AnimationPlayer animPlayer;
 	private enum EnemyStates
 	{
 		started,
@@ -27,6 +28,8 @@ public partial class BaseEnemy : CharacterBody2D
 	{
 		timer = GetNode<Timer>("Timer");
 		target = GetParent().GetNode<CharacterBody2D>("Player");
+		animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+		bulletSpawn = GetNode<Node2D>("TankBody/TankTurret/BulletSpawnNode");
 		SetupEnemy();
 	}
 
@@ -38,9 +41,15 @@ public partial class BaseEnemy : CharacterBody2D
 
 	private void Shoot()
 	{
+		PlayShootAnimation(); 
 		var newBullet = bullet.Instantiate<EnemyBullet>();
-		newBullet.SetupBullet(Position, target.Position, damage, bulletSpeed);
+		newBullet.SetupBullet(bulletSpawn.GlobalPosition, target.Position, damage, bulletSpeed);
 		GetParent().AddChild(newBullet);
+	}
+
+	private void PlayShootAnimation()
+	{
+		animPlayer.Play("SotExplosion");
 	}
 
 	private void TimeOut()
@@ -77,7 +86,6 @@ public partial class BaseEnemy : CharacterBody2D
 	public override void _PhysicsProcess(double delta)
 	{
 		Vector2 velocity = Velocity;
-
 		velocity = Vector2.Down * Speed;
 
 		Velocity = velocity;
