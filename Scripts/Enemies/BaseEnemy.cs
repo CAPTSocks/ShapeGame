@@ -35,7 +35,7 @@ public partial class BaseEnemy : CharacterBody2D
 
 	public void SetupEnemy()
 	{
-		timer.WaitTime = random.RandfRange(1.5f, 4f);
+		timer.WaitTime = random.RandfRange(1.5f, 2.5f);
 		timer.Start();
 	}
 

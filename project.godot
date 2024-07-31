@@ -30,6 +30,16 @@ window/handheld/orientation=1
 
 project/assembly_name="Shape Game"
 
+[file_customization]
+
+folder_colors={
+"res://Scenes/": "pink",
+"res://Scripts/": "teal",
+"res://Sprites/": "blue",
+"res://Sprites/Other/": "orange",
+"res://android/": "green"
+}
+
 [input]
 
 Swipe={

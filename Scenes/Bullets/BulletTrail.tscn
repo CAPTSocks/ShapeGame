@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://crr0ltyon3jdt"]
+
+[ext_resource type="Script" path="res://Scripts/Bullets/BulletTrail.cs" id="1_m446o"]
+
+[sub_resource type="Curve" id="Curve_g2fpp"]
+_data = [Vector2(0, 0), 0.0, 0.00553203, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_y2xvr"]
+offsets = PackedFloat32Array(0.00255754)
+colors = PackedColorArray(0.537255, 0.4, 0.329412, 0.196078)
+metadata/_snap_count = 7
+
+[node name="Line2D" type="Line2D"]
+top_level = true
+closed = true
+width = 30.0
+width_curve = SubResource("Curve_g2fpp")
+default_color = Color(1, 0, 0, 1)
+gradient = SubResource("Gradient_y2xvr")
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 1
+sharp_limit = 10.0
+round_precision = 10
+antialiased = true
+script = ExtResource("1_m446o")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+
+[connection signal="timeout" from="Timer" to="." method="timerOut"]

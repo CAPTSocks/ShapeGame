@@ -19,19 +19,18 @@ public partial class PlayerController : CharacterBody2D
 	[Export] private float bulletSpeed = 1000;
 
 	private Timer shootTimer;
+	private Node2D bulletSpawn;
 
 	public override void _Ready()
 	{
-		GD.Print("test");
 		shootTimer = GetNode<Timer>("ShootTimer");
 		anim = GetNode<AnimationPlayer>("AnimationPlayer");
+		bulletSpawn = GetNode<Node2D>("BulletSpawn");
 	}
 
 	private void Timeout()
 	{
-		// GD.Print("Time up");
-		// shootTimer.Stop();
-		// swipe = true;
+
 	}
 
 	public override void _UnhandledInput(InputEvent @event)
@@ -65,7 +64,7 @@ public partial class PlayerController : CharacterBody2D
 	private void Shoot(Vector2 pos)
 	{
 		var newBullet = bullet.Instantiate<PlayerBullet>();
-		newBullet.SetupBullet(Position, pos, bulletDamage, bulletSpeed);
+		newBullet.SetupBullet(bulletSpawn.GlobalPosition, pos, bulletDamage, bulletSpeed);
 		GetParent().AddChild(newBullet);
 	}
 

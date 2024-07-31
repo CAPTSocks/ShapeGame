@@ -5,7 +5,7 @@ public partial class PlayerBullet : BaseBullet
 {
 	public override void _Ready()
 	{
-
+		base._Ready();
 	}
 	private void OnVisibleOnScreenNotifier2DScreenExited()
 	{

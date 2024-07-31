@@ -1,21 +1,27 @@
-[gd_scene load_steps=4 format=3 uid="uid://bwrtu1fomx2qt"]
+[gd_scene load_steps=5 format=3 uid="uid://bwrtu1fomx2qt"]
 
 [ext_resource type="Script" path="res://Scripts/Bullets/PlayerBullet.cs" id="1_3w5uk"]
-[ext_resource type="Texture2D" uid="uid://dnfkkv7osderq" path="res://icon.svg" id="2_gsqks"]
+[ext_resource type="Texture2D" uid="uid://ssl6eg4u5enu" path="res://Sprites/Other/Bullet.png" id="2_uksre"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bfcey"]
 radius = 12.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_60bti"]
+radius = 5.0
+height = 18.0
+
 [node name="CharacterBody2D" type="CharacterBody2D"]
-modulate = Color(0.615686, 0.694118, 0, 1)
 motion_mode = 1
 script = ExtResource("1_3w5uk")
+speed = 100.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.160156, 0.160156)
-texture = ExtResource("2_gsqks")
+position = Vector2(2.38419e-07, -2.38419e-07)
+scale = Vector2(0.667114, 0.667114)
+texture = ExtResource("2_uksre")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("CircleShape2D_bfcey")
 disabled = true
 
@@ -27,7 +33,7 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("CircleShape2D_bfcey")
+shape = SubResource("CapsuleShape2D_60bti")
 
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
 

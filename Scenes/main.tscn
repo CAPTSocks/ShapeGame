@@ -1,13 +1,15 @@
-[gd_scene load_steps=10 format=3 uid="uid://bdf4pv8d5tark"]
+[gd_scene load_steps=12 format=3 uid="uid://bdf4pv8d5tark"]
 
 [ext_resource type="PackedScene" uid="uid://45ixu3g78368" path="res://Scenes/Player.tscn" id="1_hucya"]
 [ext_resource type="Script" path="res://Scenes/HUD.cs" id="3_0pg48"]
 [ext_resource type="PackedScene" uid="uid://w2th2gtum5j3" path="res://Scenes/Player/PlayerHealthBar.tscn" id="4_a2dk8"]
 [ext_resource type="Script" path="res://Scripts/FPSCounter.cs" id="4_h0a7w"]
 [ext_resource type="Script" path="res://Scripts/Enemies/EnemyGoal.cs" id="5_ge50q"]
+[ext_resource type="Script" path="res://Scripts/Other/ScrollingBG.cs" id="5_ittir"]
 [ext_resource type="Script" path="res://Scripts/Managers/EnemySpawnManager.cs" id="6_26fhw"]
 [ext_resource type="PackedScene" uid="uid://c0u00kdd17nye" path="res://Scenes/Enemies/TankEnemy.tscn" id="7_bbnk3"]
 [ext_resource type="PackedScene" uid="uid://cccj7f8aytr3q" path="res://Scenes/health_wrench.tscn" id="8_bu5oh"]
+[ext_resource type="Texture2D" uid="uid://3dxt3811q2lb" path="res://Sprites/Other/TempBackground.png" id="9_kfe1h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e3lg3"]
 size = Vector2(1200, 20)
@@ -53,6 +55,18 @@ text = "[center]1:00
 "
 fit_content = true
 
+[node name="ParallaxBackground" type="ParallaxBackground" parent="HUD"]
+script = ExtResource("5_ittir")
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="HUD/ParallaxBackground"]
+motion_mirroring = Vector2(0, 4007)
+
+[node name="BG" type="Sprite2D" parent="HUD/ParallaxBackground/ParallaxLayer"]
+z_index = -5
+texture_repeat = 3
+position = Vector2(604, 1708)
+texture = ExtResource("9_kfe1h")
+
 [node name="EnemyGoal" type="Node2D" parent="."]
 position = Vector2(0, 2000)
 script = ExtResource("5_ge50q")
@@ -69,7 +83,7 @@ shape = SubResource("RectangleShape2D_e3lg3")
 script = ExtResource("6_26fhw")
 baseEnemy = ExtResource("7_bbnk3")
 healtWrench = ExtResource("8_bu5oh")
-spawnDelay = 4.0
+spawnDelay = 3.0
 
 [node name="Left" type="Node2D" parent="EnemySpawnManager"]
 position = Vector2(190, -351)
