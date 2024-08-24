@@ -39,7 +39,7 @@ public partial class BaseEnemy : CharacterBody2D
 		timer.Start();
 	}
 
-	private void Shoot()
+	protected virtual void Shoot()
 	{
 		PlayShootAnimation(); 
 		var newBullet = bullet.Instantiate<EnemyBullet>();

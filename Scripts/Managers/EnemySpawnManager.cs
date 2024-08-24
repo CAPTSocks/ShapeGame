@@ -32,7 +32,7 @@ public partial class EnemySpawnManager : Node
 	{
 		int randomNum = random.RandiRange(0, 100);
 		GD.Print("Random health Number " + randomNum);
-		if (randomNum <= 10)
+		if (randomNum <= 1)
 		{
 			SpawnHealthItem();
 			return; 
