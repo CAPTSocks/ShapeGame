@@ -29,7 +29,6 @@ public partial class BaseEnemy : CharacterBody2D
 		timer = GetNode<Timer>("Timer");
 		target = GetParent().GetNode<CharacterBody2D>("Player");
 		animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
-		bulletSpawn = GetNode<Node2D>("TankBody/TankTurret/BulletSpawnNode");
 		SetupEnemy();
 	}
 
@@ -43,7 +42,14 @@ public partial class BaseEnemy : CharacterBody2D
 	{
 		PlayShootAnimation(); 
 		var newBullet = bullet.Instantiate<EnemyBullet>();
+		if (bulletSpawn != null)
+		{
 		newBullet.SetupBullet(bulletSpawn.GlobalPosition, target.Position, damage, bulletSpeed);
+		}
+		else 
+		{
+			newBullet.SetupBullet(this.GlobalPosition, target.Position, damage, bulletSpeed);
+		}
 		GetParent().AddChild(newBullet);
 	}
 

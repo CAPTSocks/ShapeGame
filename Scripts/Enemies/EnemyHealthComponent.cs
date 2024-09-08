@@ -12,7 +12,7 @@ public partial class EnemyHealthComponent : Node
 
     public override void _Ready()
     {
-		sprite = GetParent().GetNode<Sprite2D>("TankBody");
+		sprite = GetParent().GetNode<Sprite2D>("Body");
 		hitTimer = GetNode<Timer>("HitTimer");
         baseColor = sprite.Modulate;
     }

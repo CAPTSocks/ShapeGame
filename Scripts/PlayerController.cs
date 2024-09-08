@@ -1,3 +1,4 @@
+using System.Text.Unicode;
 using Godot;
 
 public partial class PlayerController : CharacterBody2D
@@ -20,6 +21,7 @@ public partial class PlayerController : CharacterBody2D
 
 	private Timer shootTimer;
 	private Node2D bulletSpawn;
+	private int movePos = 0;
 
 	public override void _Ready()
 	{
@@ -71,20 +73,21 @@ public partial class PlayerController : CharacterBody2D
 	private void Move()
 	{
 		//Move Left
-		if (startPressPos.X > endPressPos.X)
+		if (startPressPos.X > endPressPos.X && movePos > -2)
 		{
 			moveToPos = new Vector2(this.Position.X - moveDistance, this.Position.Y);
 			canMove = true;
 			anim.Play("TurnLeft");
+			movePos --;
 		}
 		
 		//Move Right
-		if (startPressPos.X < endPressPos.X)
+		if (startPressPos.X < endPressPos.X && movePos < 2)
 		{
 			moveToPos = new Vector2(this.Position.X + moveDistance, this.Position.Y);
 			canMove = true;
-			
 			anim.Play("TurnRight");
+			movePos ++;
 		}
 	}
 

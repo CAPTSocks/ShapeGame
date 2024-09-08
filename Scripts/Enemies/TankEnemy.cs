@@ -8,7 +8,8 @@ public partial class TankEnemy : BaseEnemy
     public override void _Ready()
     {
         base._Ready();
-        turretSprite = GetNode<Sprite2D>("TankBody/TankTurret");
+        turretSprite = GetNode<Sprite2D>("Body/TankTurret");
+        bulletSpawn = GetNode<Node2D>("Body/TankTurret/BulletSpawnNode");
     }
 
     public override void _PhysicsProcess(double delta)

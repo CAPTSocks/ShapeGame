@@ -18,7 +18,7 @@ step = 0.01
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("TankBody/TankTurret/Explosion:frame")
+tracks/0/path = NodePath("Body/TankTurret/Explosion:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -45,23 +45,23 @@ bulletSpeed = 800.0
 shotDelay = 2.5
 bullet = ExtResource("2_sg6nn")
 
-[node name="TankBody" type="Sprite2D" parent="."]
+[node name="Body" type="Sprite2D" parent="."]
 rotation = 3.14159
 scale = Vector2(2.8, 2.8)
 texture = ExtResource("3_b6pb2")
 
-[node name="TankTurret" type="Sprite2D" parent="TankBody"]
+[node name="TankTurret" type="Sprite2D" parent="Body"]
 position = Vector2(0, 9.64912)
 texture = ExtResource("4_xic0w")
 offset = Vector2(0, -10)
 
-[node name="Explosion" type="Sprite2D" parent="TankBody/TankTurret"]
+[node name="Explosion" type="Sprite2D" parent="Body/TankTurret"]
 position = Vector2(-1.07143, -51.0777)
 texture = ExtResource("5_l0lr7")
 hframes = 11
 frame = 10
 
-[node name="BulletSpawnNode" type="Node2D" parent="TankBody/TankTurret"]
+[node name="BulletSpawnNode" type="Node2D" parent="Body/TankTurret"]
 position = Vector2(-3.6218e-06, -51.0777)
 rotation = 3.14159
 scale = Vector2(0.357143, 0.357143)

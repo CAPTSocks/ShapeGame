@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://dglglgsyd4d42"]
 
-[ext_resource type="Script" path="res://Scripts/Enemies/TankEnemy.cs" id="1_k4hmn"]
-[ext_resource type="PackedScene" uid="uid://cmbrb76yupwl7" path="res://Scenes/Bullets/EnemyBullet.tscn" id="2_tata1"]
+[ext_resource type="Script" path="res://Scripts/Enemies/HelicopterEnemy.cs" id="1_w4nwf"]
+[ext_resource type="PackedScene" uid="uid://cmbrb76yupwl7" path="res://Scenes/Bullets/EnemyBullet.tscn" id="2_n3p62"]
 [ext_resource type="Texture2D" uid="uid://vnyepuwyc4ai" path="res://Sprites/Enemies/Helicopter/HelicopterBody.png" id="3_l8v5i"]
 [ext_resource type="Texture2D" uid="uid://r75m1g1s0l22" path="res://Sprites/Enemies/Helicopter/HelicopterRotor.png" id="4_13jog"]
 [ext_resource type="Script" path="res://Scripts/Player/RotorRotate.cs" id="5_83o6a"]
@@ -19,7 +19,7 @@ step = 0.01
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("HelicopterBody/Explosion:frame")
+tracks/0/path = NodePath("Body/Explosion:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -38,33 +38,33 @@ _data = {
 collision_layer = 2
 collision_mask = 2
 motion_mode = 1
-script = ExtResource("1_k4hmn")
-Speed = 275.0
-damage = -10
-scoreAmount = 50
-bulletSpeed = 800.0
-shotDelay = 2.5
-bullet = ExtResource("2_tata1")
+script = ExtResource("1_w4nwf")
+Speed = 400.0
+damage = -1
+scoreAmount = 100
+shotDelay = 0.5
+bullet = ExtResource("2_n3p62")
 
-[node name="HelicopterBody" type="Sprite2D" parent="."]
-position = Vector2(-8, -55)
+[node name="Body" type="Sprite2D" parent="."]
+position = Vector2(-8, -43)
 rotation = 3.14159
-scale = Vector2(2.8, 2.8)
+scale = Vector2(2.2, 2.2)
 texture = ExtResource("3_l8v5i")
 
-[node name="HelicopterRotor" type="Sprite2D" parent="HelicopterBody"]
-position = Vector2(0, 9.64912)
+[node name="HelicopterRotor" type="Sprite2D" parent="Body"]
+position = Vector2(-3.63631, -19.5455)
 texture = ExtResource("4_13jog")
-offset = Vector2(0, -10)
+offset = Vector2(3, 19)
 script = ExtResource("5_83o6a")
+rotateSpeed = 450.0
 
-[node name="Explosion" type="Sprite2D" parent="HelicopterBody"]
+[node name="Explosion" type="Sprite2D" parent="Body"]
 position = Vector2(-3.57125, -68.5714)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("5_t0iy8")
 hframes = 11
 
-[node name="BulletSpawnNode" type="Node2D" parent="HelicopterBody"]
+[node name="BulletSpawnNode" type="Node2D" parent="Body"]
 position = Vector2(-2.85696, -72.5)
 rotation = 3.14159
 scale = Vector2(0.357143, 0.357143)
@@ -79,7 +79,7 @@ wait_time = 1.5
 
 [node name="HealthComp" type="Node2D" parent="."]
 script = ExtResource("6_e7oe6")
-health = 30
+health = 20
 hitColor = Color(0.670588, 0, 0.188235, 1)
 
 [node name="HitTimer" type="Timer" parent="HealthComp"]

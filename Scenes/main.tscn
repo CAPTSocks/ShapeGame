@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bdf4pv8d5tark"]
+[gd_scene load_steps=13 format=3 uid="uid://bdf4pv8d5tark"]
 
 [ext_resource type="PackedScene" uid="uid://45ixu3g78368" path="res://Scenes/Player.tscn" id="1_hucya"]
 [ext_resource type="Script" path="res://Scenes/HUD.cs" id="3_0pg48"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://c0u00kdd17nye" path="res://Scenes/Enemies/TankEnemy.tscn" id="7_bbnk3"]
 [ext_resource type="PackedScene" uid="uid://cccj7f8aytr3q" path="res://Scenes/health_wrench.tscn" id="8_bu5oh"]
 [ext_resource type="Texture2D" uid="uid://3dxt3811q2lb" path="res://Sprites/Other/TempBackground.png" id="9_kfe1h"]
+[ext_resource type="PackedScene" uid="uid://dglglgsyd4d42" path="res://Scenes/Enemies/HelicopterEnemy.tscn" id="11_qvxme"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e3lg3"]
 size = Vector2(1200, 20)
@@ -83,6 +84,8 @@ shape = SubResource("RectangleShape2D_e3lg3")
 script = ExtResource("6_26fhw")
 baseEnemy = ExtResource("7_bbnk3")
 healtWrench = ExtResource("8_bu5oh")
+packedLandEnemeies = Array[PackedScene]([ExtResource("7_bbnk3")])
+packedAirEnemeies = Array[PackedScene]([ExtResource("11_qvxme")])
 spawnDelay = 3.0
 
 [node name="Left" type="Node2D" parent="EnemySpawnManager"]
