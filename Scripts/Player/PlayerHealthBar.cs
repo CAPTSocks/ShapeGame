@@ -16,7 +16,9 @@ public partial class PlayerHealthBar : Sprite2D
 	{
 		healthBar = GetNode<TextureProgressBar>("HealthBar");
 		timer = GetNode<Timer>("Timer");
+
 		maxHealth = (float)healthBar.Value;
+
 	}
 
 	private void OnPlayerHealthChanged(int newHealthValue)
@@ -79,6 +81,8 @@ public partial class PlayerHealthBar : Sprite2D
 			 }
 		}
 	}
+
+
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)

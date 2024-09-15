@@ -5,6 +5,7 @@ public partial class EnemyHealthComponent : Node
 {
 	[Export] private int health = 10;
 	[Export] private Color hitColor;
+	[Export] private PackedScene deathExplosion;
 	private Sprite2D sprite; 
 	private Color baseColor;
 	private Timer hitTimer;
@@ -41,7 +42,15 @@ public partial class EnemyHealthComponent : Node
 
 	private void Die()
 	{
-		GetParent().QueueFree();
+		Node2D parent =  (Node2D)GetParent();
+		if (deathExplosion != null)
+		{
+			var explosion = (Node2D)deathExplosion.Instantiate<Node>();
+
+			explosion.Position = parent.Position;
+			parent.GetParent().AddChild(explosion);
+		}
+		parent.QueueFree();
 	}
 
 

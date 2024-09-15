@@ -40,7 +40,7 @@ public partial class EnemySpawnManager : Node
 	{
 		int randomNum = random.RandiRange(0, 100);
 		GD.Print("Random health Number " + randomNum);
-		if (randomNum <= 1)
+		if (randomNum <= 10)
 		{
 			SpawnHealthItem();
 			return; 
@@ -79,7 +79,7 @@ public partial class EnemySpawnManager : Node
 	private int EnemyPicker()
 	{
 		int type = random.RandiRange(0, 100);
-		if (type <= 75)
+		if (type <= 85)
 		{
 			//Spawn Land Enemy
 			return 0;

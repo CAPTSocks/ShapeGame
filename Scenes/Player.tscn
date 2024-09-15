@@ -122,5 +122,13 @@ libraries = {
 [node name="BulletSpawn" type="Node2D" parent="."]
 position = Vector2(0, -68.1818)
 
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CapsuleShape2D_se8e1")
+
 [connection signal="timeout" from="ShootTimer" to="." method="Timeout"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="animationFinished"]
+[connection signal="body_entered" from="Area2D" to="." method="OnBodyEntered"]

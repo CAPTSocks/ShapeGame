@@ -8,6 +8,7 @@ public partial class PlayerController : CharacterBody2D
 	private Vector2 endPressPos;
 	private Vector2 moveToPos;
 	private bool canMove = false;
+	private bool isDead = false;
 	private bool swipe = false;
 	private AnimationPlayer anim;
 	[Export]
@@ -22,17 +23,16 @@ public partial class PlayerController : CharacterBody2D
 	private Timer shootTimer;
 	private Node2D bulletSpawn;
 	private int movePos = 0;
+	private PlayerHealthComponent healthComponentAccess;
 
 	public override void _Ready()
 	{
 		shootTimer = GetNode<Timer>("ShootTimer");
 		anim = GetNode<AnimationPlayer>("AnimationPlayer");
 		bulletSpawn = GetNode<Node2D>("BulletSpawn");
-	}
+		healthComponentAccess = GetNode<PlayerHealthComponent>("HealthComponent");
 
-	private void Timeout()
-	{
-
+		healthComponentAccess.PlayerDied += PlayerDied;
 	}
 
 	public override void _UnhandledInput(InputEvent @event)
@@ -45,7 +45,7 @@ public partial class PlayerController : CharacterBody2D
 				startPressPos = press.Position;
 			}
 
-			if (press.IsActionReleased("Swipe"))
+			if (press.IsActionReleased("Swipe") && !isDead)
 			{
 				endPressPos = press.Position;
 				if (startPressPos.DistanceTo(endPressPos) >= 250)
@@ -100,6 +100,31 @@ public partial class PlayerController : CharacterBody2D
 		else if (name == "TurnLeft")
 		{
 			anim.Play("StraightFromLeft");
+		}
+	}
+
+	private void PlayerDied()
+	{
+		GD.Print("Player is Dead");
+		isDead = true;
+	}
+
+	private void OnBodyEntered(Node body)
+	{
+		GD.Print("test");
+		if (body.IsInGroup("AirEnemy"))
+		{
+			
+			var enemy = body.GetNode<EnemyHealthComponent>("HealthComp");
+			if (enemy != null)
+			{
+				enemy.IncrementHealth(-100);
+			}
+			
+			if (healthComponentAccess != null)
+			{
+				healthComponentAccess.IncrementHealth(-25);
+			}
 		}
 	}
 

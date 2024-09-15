@@ -9,8 +9,8 @@
 [ext_resource type="Script" path="res://Scripts/Enemies/EnemyHealthComponent.cs" id="6_e7oe6"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_v4g4e"]
-radius = 87.0019
-height = 453.986
+radius = 75.0041
+height = 312.046
 
 [sub_resource type="Animation" id="Animation_ydowe"]
 resource_name = "SotExplosion"
@@ -34,7 +34,7 @@ _data = {
 "SotExplosion": SubResource("Animation_ydowe")
 }
 
-[node name="HelicoptorEnemy" type="CharacterBody2D" groups=["Enemy"]]
+[node name="HelicoptorEnemy" type="CharacterBody2D" groups=["AirEnemy", "Enemy"]]
 collision_layer = 2
 collision_mask = 2
 motion_mode = 1
@@ -70,7 +70,7 @@ rotation = 3.14159
 scale = Vector2(0.357143, 0.357143)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1.49012e-08, -64)
+position = Vector2(-4.26326e-14, -53)
 rotation = 0.0021186
 shape = SubResource("CapsuleShape2D_v4g4e")
 

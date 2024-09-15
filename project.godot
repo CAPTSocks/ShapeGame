@@ -17,13 +17,14 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Gm="*res://Scenes/GM.cs"
+Gm="*res://Scripts/GM.cs"
 
 [display]
 
 window/size/viewport_width=1200
 window/size/viewport_height=2600
-window/stretch/mode="canvas_items"
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
 window/handheld/orientation=1
 
 [dotnet]

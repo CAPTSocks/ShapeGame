@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://cgrmokhihva48"]
+[gd_scene load_steps=7 format=3 uid="uid://cgrmokhihva48"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/BaseEnemy.cs" id="1_uigo7"]
 [ext_resource type="Texture2D" uid="uid://dnfkkv7osderq" path="res://icon.svg" id="2_0nrej"]
 [ext_resource type="PackedScene" uid="uid://cmbrb76yupwl7" path="res://Scenes/Bullets/EnemyBullet.tscn" id="2_uaeom"]
 [ext_resource type="Script" path="res://Scripts/Enemies/EnemyHealthComponent.cs" id="4_lpqws"]
+[ext_resource type="PackedScene" uid="uid://cirsht75r8hln" path="res://Scenes/Other/explosion.tscn" id="5_25c2j"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_v4g4e"]
 radius = 71.0
@@ -31,6 +32,7 @@ wait_time = 1.5
 script = ExtResource("4_lpqws")
 health = 30
 hitColor = Color(1, 0, 0, 1)
+deathExplosion = ExtResource("5_25c2j")
 
 [node name="HitTimer" type="Timer" parent="HealthComp"]
 wait_time = 0.1
