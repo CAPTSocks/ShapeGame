@@ -1,9 +1,10 @@
 using System;
+using System.Diagnostics;
 using Godot;
 
 public partial class BaseEnemy : CharacterBody2D
 {
-	[Export] private float Speed = 300.0f;
+	[Export] protected float Speed = 300.0f;
 	[Export] protected int damage = -5, scoreAmount = 25;
 	[Export] private float bulletSpeed = 1000;
 	[Export] private float shotDelay = 1f;
@@ -13,7 +14,7 @@ public partial class BaseEnemy : CharacterBody2D
 	private Timer timer;
 	private bool FirstSetup = true, reachedEnd = false;
 	private RandomNumberGenerator random = new RandomNumberGenerator();
-	private AnimationPlayer animPlayer;
+	protected AnimationPlayer animPlayer;
 	private enum EnemyStates
 	{
 		started,
@@ -34,7 +35,7 @@ public partial class BaseEnemy : CharacterBody2D
 
 	public void SetupEnemy()
 	{
-		timer.WaitTime = random.RandfRange(1.5f, 2.5f);
+		timer.WaitTime = random.RandfRange(shotDelay / 2, shotDelay + (shotDelay / 2));
 		timer.Start();
 	}
 
@@ -76,6 +77,7 @@ public partial class BaseEnemy : CharacterBody2D
 			case EnemyStates.ended:
 				var gm = (GM)GetNode("/root/Gm");
 				gm.EmitSignal("ScoreUpdate", -25);
+				GD.Print(this.Name + " Deleted");
 				QueueFree();
 				break;
 		}

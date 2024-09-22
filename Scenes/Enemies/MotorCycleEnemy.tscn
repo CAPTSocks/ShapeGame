@@ -1,0 +1,217 @@
+[gd_scene load_steps=16 format=3 uid="uid://cyydxjwdu1qie"]
+
+[ext_resource type="Script" path="res://Scripts/Enemies/MotorcycleEnemy.cs" id="1_273nj"]
+[ext_resource type="PackedScene" uid="uid://cmbrb76yupwl7" path="res://Scenes/Bullets/EnemyBullet.tscn" id="2_miqof"]
+[ext_resource type="Texture2D" uid="uid://cigjs1tqyti08" path="res://Sprites/Enemies/Motorcycle/Motorcycle.png" id="3_bs1dh"]
+[ext_resource type="Texture2D" uid="uid://bdfa1pwy5fqkn" path="res://Sprites/Enemies/Tank/Explosion/Explosion.png" id="5_hp6xa"]
+[ext_resource type="Script" path="res://Scripts/Enemies/EnemyHealthComponent.cs" id="6_la3uc"]
+[ext_resource type="PackedScene" uid="uid://cirsht75r8hln" path="res://Scenes/Other/explosion.tscn" id="7_u2o5b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_clmdh"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_v4g4e"]
+radius = 57.0
+height = 202.0
+
+[sub_resource type="Animation" id="Animation_pjlhf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Body/ShotExplosionLeft:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_8wtyv"]
+resource_name = "StraightFromLeft"
+length = 0.25
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.610865, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_eyotq"]
+resource_name = "StraightFromRight"
+length = 0.25
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.610865, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_7lwi5"]
+resource_name = "TurnLeft"
+length = 0.25
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.610865]
+}
+
+[sub_resource type="Animation" id="Animation_1eem3"]
+resource_name = "TurnRight"
+length = 0.25
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -0.610865]
+}
+
+[sub_resource type="Animation" id="Animation_dtgrn"]
+resource_name = "SotAnimation"
+length = 0.31
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body/ShotExplosionLeft:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.03, 0.06, 0.09, 0.12, 0.15, 0.18, 0.21, 0.24, 0.27, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Body/ShotExplosionRight:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.03, 0.06, 0.09, 0.12, 0.15, 0.18, 0.21, 0.24, 0.27, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hucy4"]
+_data = {
+"RESET": SubResource("Animation_pjlhf"),
+"SotExplosion": SubResource("Animation_dtgrn"),
+"StraightFromLeft": SubResource("Animation_8wtyv"),
+"StraightFromRight": SubResource("Animation_eyotq"),
+"TurnLeft": SubResource("Animation_7lwi5"),
+"TurnRight": SubResource("Animation_1eem3")
+}
+
+[node name="MotorcycleEnemy" type="CharacterBody2D" groups=["Enemy"]]
+scale = Vector2(1.1, 1.1)
+collision_layer = 2
+collision_mask = 2
+motion_mode = 1
+script = ExtResource("1_273nj")
+Speed = 550.0
+scoreAmount = 15
+shotDelay = 0.8
+bullet = ExtResource("2_miqof")
+
+[node name="ShapeCast2D" type="ShapeCast2D" parent="."]
+position = Vector2(0, 83)
+scale = Vector2(5, 3.605)
+shape = SubResource("RectangleShape2D_clmdh")
+target_position = Vector2(0, 25)
+collision_mask = 2
+
+[node name="Body" type="Sprite2D" parent="."]
+scale = Vector2(1.20305, 1.22413)
+texture = ExtResource("3_bs1dh")
+
+[node name="ShotExplosionLeft" type="Sprite2D" parent="Body"]
+position = Vector2(-0.88, 43.5)
+rotation = -3.14159
+scale = Vector2(0.706538, 0.730315)
+texture = ExtResource("5_hp6xa")
+hframes = 11
+frame = 1
+
+[node name="ShotExplosionRight" type="Sprite2D" parent="Body"]
+position = Vector2(2.286, 43.5)
+rotation = -3.14159
+scale = Vector2(0.706538, 0.730315)
+texture = ExtResource("5_hp6xa")
+hframes = 11
+
+[node name="BulletSpawn" type="Node2D" parent="Body"]
+position = Vector2(0, 44.113)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_v4g4e")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.5
+
+[node name="TurnTimer" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+
+[node name="HealthComp" type="Node2D" parent="."]
+script = ExtResource("6_la3uc")
+health = 5
+hitColor = Color(1, 0, 0, 1)
+deathExplosion = ExtResource("7_u2o5b")
+
+[node name="HitTimer" type="Timer" parent="HealthComp"]
+wait_time = 0.1
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_hucy4")
+}
+
+[connection signal="timeout" from="Timer" to="." method="TimeOut"]
+[connection signal="timeout" from="TurnTimer" to="." method="TurnTimerTimeOut"]
+[connection signal="timeout" from="HealthComp/HitTimer" to="HealthComp" method="HitTimerOut"]

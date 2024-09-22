@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dglglgsyd4d42"]
+[gd_scene load_steps=12 format=3 uid="uid://dglglgsyd4d42"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/HelicopterEnemy.cs" id="1_w4nwf"]
 [ext_resource type="PackedScene" uid="uid://cmbrb76yupwl7" path="res://Scenes/Bullets/EnemyBullet.tscn" id="2_n3p62"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://Scripts/Player/RotorRotate.cs" id="5_83o6a"]
 [ext_resource type="Texture2D" uid="uid://bdfa1pwy5fqkn" path="res://Sprites/Enemies/Tank/Explosion/Explosion.png" id="5_t0iy8"]
 [ext_resource type="Script" path="res://Scripts/Enemies/EnemyHealthComponent.cs" id="6_e7oe6"]
+[ext_resource type="PackedScene" uid="uid://cirsht75r8hln" path="res://Scenes/Other/explosion.tscn" id="8_bibhw"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_v4g4e"]
 radius = 75.0041
@@ -35,14 +36,13 @@ _data = {
 }
 
 [node name="HelicoptorEnemy" type="CharacterBody2D" groups=["AirEnemy", "Enemy"]]
-collision_layer = 2
-collision_mask = 2
+collision_layer = 4
+collision_mask = 4
 motion_mode = 1
 script = ExtResource("1_w4nwf")
 Speed = 400.0
-damage = -1
 scoreAmount = 100
-shotDelay = 0.5
+shotDelay = 1.2
 bullet = ExtResource("2_n3p62")
 
 [node name="Body" type="Sprite2D" parent="."]
@@ -81,6 +81,7 @@ wait_time = 1.5
 script = ExtResource("6_e7oe6")
 health = 20
 hitColor = Color(0.670588, 0, 0.188235, 1)
+deathExplosion = ExtResource("8_bibhw")
 
 [node name="HitTimer" type="Timer" parent="HealthComp"]
 wait_time = 0.1

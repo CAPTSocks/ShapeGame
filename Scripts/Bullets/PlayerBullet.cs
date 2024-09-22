@@ -7,10 +7,10 @@ public partial class PlayerBullet : BaseBullet
 	{
 		base._Ready();
 	}
-	private void OnVisibleOnScreenNotifier2DScreenExited()
-	{
-		QueueFree();
-	}
+	// private void OnVisibleOnScreenNotifier2DScreenExited()
+	// {
+	// 	QueueFree();
+	// }
 
 	private void OnBodyEntered(Node body)
 	{

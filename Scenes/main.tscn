@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bdf4pv8d5tark"]
+[gd_scene load_steps=17 format=3 uid="uid://bdf4pv8d5tark"]
 
 [ext_resource type="PackedScene" uid="uid://45ixu3g78368" path="res://Scenes/Player.tscn" id="1_hucya"]
 [ext_resource type="Script" path="res://Scripts/HUD.cs" id="3_0pg48"]
@@ -12,6 +12,9 @@
 [ext_resource type="PackedScene" uid="uid://cccj7f8aytr3q" path="res://Scenes/health_wrench.tscn" id="8_bu5oh"]
 [ext_resource type="Texture2D" uid="uid://3dxt3811q2lb" path="res://Sprites/Other/TempBackground.png" id="9_kfe1h"]
 [ext_resource type="PackedScene" uid="uid://dglglgsyd4d42" path="res://Scenes/Enemies/HelicopterEnemy.tscn" id="11_qvxme"]
+[ext_resource type="PackedScene" uid="uid://byef8ktwjmjgf" path="res://Scenes/Enemies/JeepEnemy.tscn" id="12_uyn0h"]
+[ext_resource type="PackedScene" uid="uid://cyydxjwdu1qie" path="res://Scenes/Enemies/MotorCycleEnemy.tscn" id="13_456o8"]
+[ext_resource type="PackedScene" uid="uid://cwbsfs4xbsjwe" path="res://Scenes/Enemies/APCEnemy.tscn" id="14_06gjc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e3lg3"]
 size = Vector2(1200, 20)
@@ -101,8 +104,8 @@ position = Vector2(0, 2000)
 script = ExtResource("5_ge50q")
 
 [node name="Area2D" type="Area2D" parent="EnemyGoal"]
-collision_layer = 3
-collision_mask = 3
+collision_layer = 7
+collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyGoal/Area2D"]
 position = Vector2(600, 10)
@@ -112,9 +115,10 @@ shape = SubResource("RectangleShape2D_e3lg3")
 script = ExtResource("6_26fhw")
 baseEnemy = ExtResource("7_bbnk3")
 healtWrench = ExtResource("8_bu5oh")
-packedLandEnemeies = Array[PackedScene]([ExtResource("7_bbnk3")])
+packedLandEnemeies = Array[PackedScene]([ExtResource("13_456o8"), ExtResource("12_uyn0h"), ExtResource("14_06gjc"), ExtResource("7_bbnk3")])
 packedAirEnemeies = Array[PackedScene]([ExtResource("11_qvxme")])
-spawnDelay = 3.0
+spawnDelay = 4.0
+newEnemyTypeDelay = 15.0
 
 [node name="Left" type="Node2D" parent="EnemySpawnManager"]
 position = Vector2(190, -351)
@@ -133,10 +137,14 @@ position = Vector2(790, -351)
 
 [node name="SpawnTimer" type="Timer" parent="EnemySpawnManager"]
 
+[node name="SpawnTypeTimer" type="Timer" parent="EnemySpawnManager"]
+wait_time = 15.0
+
 [connection signal="HealthChanged" from="Player/HealthComponent" to="HUD/HUDContainer/Control/EmptyHealthBar" method="OnPlayerHealthChanged"]
 [connection signal="PlayerDied" from="Player/HealthComponent" to="HUD" method="EnableRestartButton"]
 [connection signal="pressed" from="HUD/RestartButton" to="HUD" method="RestartButtonPressed"]
 [connection signal="body_entered" from="EnemyGoal/Area2D" to="EnemyGoal" method="OnBodyEntered"]
-[connection signal="timeout" from="EnemySpawnManager/SpawnTimer" to="EnemySpawnManager" method="SpawnEnemy"]
+[connection signal="timeout" from="EnemySpawnManager/SpawnTimer" to="EnemySpawnManager" method="HandleSpawning"]
+[connection signal="timeout" from="EnemySpawnManager/SpawnTypeTimer" to="EnemySpawnManager" method="OnAddNewEnemyTimerTimeOut"]
 
 [editable path="Player"]

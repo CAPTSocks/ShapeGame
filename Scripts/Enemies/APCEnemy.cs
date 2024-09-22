@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class TankEnemy : BaseEnemy
+public partial class APCEnemy : BaseEnemy
 {
 	private Sprite2D turretSprite;
 
@@ -17,6 +17,6 @@ public partial class TankEnemy : BaseEnemy
     {
         base._PhysicsProcess(delta);
         turretSprite.LookAt(target.GlobalPosition);
-		turretSprite.RotationDegrees += 90; 
+		turretSprite.RotationDegrees -= 90; 
     }
 }

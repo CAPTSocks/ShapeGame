@@ -10,26 +10,36 @@ public partial class EnemySpawnManager : Node
 	[Export] private Godot.Collections.Array<PackedScene> packedAirEnemeies;
 
 	[Export] private float spawnDelay;
+	[Export] private float newEnemyTypeDelay;
+	private int enemySpawnCounter = 1;
+	private bool canSpawnAirEnemies;
 	private Node2D leftSpawner, middleSpawner, rightSpawner, leftAircraftSpawner, rightAircraftSpawner;
 	private List<Node2D> landSpawners = new List<Node2D>();
 	private List<Node2D> airSpawners = new List<Node2D>();
 	private RandomNumberGenerator random = new RandomNumberGenerator();
 	private Timer spawnTimer;
+	private Timer AddNewEnemyTimer;
 
 	public override void _Ready()
 	{
 		leftSpawner = GetNode<Node2D>("Left");
 		middleSpawner = GetNode<Node2D>("Middle");
 		rightSpawner = GetNode<Node2D>("Right");
+
 		leftAircraftSpawner = GetNode<Node2D>("AircraftLeft");
 		rightAircraftSpawner = GetNode<Node2D>("AircraftRight");
+
 		spawnTimer = GetNode<Timer>("SpawnTimer");
 		spawnTimer.WaitTime = spawnDelay;
 		spawnTimer.Start();
 
+		AddNewEnemyTimer = GetNode<Timer>("SpawnTypeTimer");
+		AddNewEnemyTimer.WaitTime = newEnemyTypeDelay;
+		AddNewEnemyTimer.Start();
+
 		landSpawners.Add(leftSpawner);
 		landSpawners.Add(middleSpawner);
-		landSpawners.Add(rightSpawner);	
+		landSpawners.Add(rightSpawner);
 
 		airSpawners.Add(leftAircraftSpawner);
 		airSpawners.Add(rightAircraftSpawner);
@@ -39,11 +49,10 @@ public partial class EnemySpawnManager : Node
 	private void HandleSpawning()
 	{
 		int randomNum = random.RandiRange(0, 100);
-		GD.Print("Random health Number " + randomNum);
-		if (randomNum <= 10)
+		if (randomNum <= 11)
 		{
 			SpawnHealthItem();
-			return; 
+			return;
 		}
 
 		SpawnEnemy();
@@ -53,7 +62,14 @@ public partial class EnemySpawnManager : Node
 	{
 		int enemyTypeToSpawn = EnemyPicker();
 
-		if (enemyTypeToSpawn == 0)
+		if (!canSpawnAirEnemies)
+		{
+			int enemyToSpawn = random.RandiRange(0, enemySpawnCounter);
+			var spawnedEnemy = packedLandEnemeies[enemyToSpawn].Instantiate<BaseEnemy>();
+			spawnedEnemy.GlobalPosition = landSpawners[PickSpawner(true)].GlobalPosition;
+			GetParent().AddChild(spawnedEnemy);
+		}
+		else if (enemyTypeToSpawn == 0)
 		{
 			int enemyToSpawn = random.RandiRange(0, packedLandEnemeies.Count - 1);
 			var spawnedEnemy = packedLandEnemeies[enemyToSpawn].Instantiate<BaseEnemy>();
@@ -67,8 +83,8 @@ public partial class EnemySpawnManager : Node
 			spawnedEnemy.GlobalPosition = airSpawners[PickSpawner(false)].GlobalPosition;
 			GetParent().AddChild(spawnedEnemy);
 		}
-		
-		if (spawnDelay >= .5f)
+
+		if (spawnDelay >= .8f)
 		{
 			GD.Print(spawnDelay);
 			spawnDelay -= .1f;
@@ -84,9 +100,9 @@ public partial class EnemySpawnManager : Node
 			//Spawn Land Enemy
 			return 0;
 		}
-		
+
 		//Spawn Air Enemy
-		return 1; 
+		return 1;
 	}
 
 	private int PickSpawner(bool useLandSpawners)
@@ -101,7 +117,7 @@ public partial class EnemySpawnManager : Node
 			int airSpawnerInt = (int)random.RandiRange(0, airSpawners.Count - 1);
 			return airSpawnerInt;
 		}
-		
+
 	}
 
 	private void SpawnHealthItem()
@@ -111,6 +127,22 @@ public partial class EnemySpawnManager : Node
 		spawnedWrench.GlobalPosition = landSpawners[randomSpawner].GlobalPosition;
 		GetParent().AddChild(spawnedWrench);
 
+	}
+
+	private void OnAddNewEnemyTimerTimeOut()
+	{
+		
+		if (enemySpawnCounter < landSpawners.Count)
+		{
+			GD.Print("New enemy type added");
+			enemySpawnCounter++;
+		}
+		else
+		{
+			GD.Print("AirEnemies added");
+			canSpawnAirEnemies = true;
+			AddNewEnemyTimer.Stop();
+		}
 	}
 
 	public override void _Process(double delta)

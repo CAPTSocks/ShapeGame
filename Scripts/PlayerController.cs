@@ -105,13 +105,11 @@ public partial class PlayerController : CharacterBody2D
 
 	private void PlayerDied()
 	{
-		GD.Print("Player is Dead");
 		isDead = true;
 	}
 
 	private void OnBodyEntered(Node body)
 	{
-		GD.Print("test");
 		if (body.IsInGroup("AirEnemy"))
 		{
 			
