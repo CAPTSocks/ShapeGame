@@ -7,10 +7,4 @@ public partial class GM : Node
 	private RichTextLabel scoreLabel;
 	private DumbAss dmitri = new DumbAss(); 
 	[Signal] public delegate void ScoreUpdateEventHandler (int points);
-	
-
-	public void RestartLevel()
-	{
-		GetTree().ReloadCurrentScene();
-	}
 }

@@ -1,27 +1,30 @@
 [gd_scene load_steps=17 format=3 uid="uid://bdf4pv8d5tark"]
 
-[ext_resource type="PackedScene" uid="uid://45ixu3g78368" path="res://Scenes/Player.tscn" id="1_hucya"]
-[ext_resource type="Script" path="res://Scripts/HUD.cs" id="3_0pg48"]
-[ext_resource type="PackedScene" uid="uid://w2th2gtum5j3" path="res://Scenes/Player/PlayerHealthBar.tscn" id="4_a2dk8"]
-[ext_resource type="Script" path="res://Scripts/FPSCounter.cs" id="4_h0a7w"]
-[ext_resource type="Script" path="res://Scripts/Enemies/EnemyGoal.cs" id="5_ge50q"]
-[ext_resource type="Script" path="res://Scripts/Other/ScrollingBG.cs" id="5_ittir"]
-[ext_resource type="Script" path="res://Scripts/Managers/EnemySpawnManager.cs" id="6_26fhw"]
-[ext_resource type="PackedScene" uid="uid://c0u00kdd17nye" path="res://Scenes/Enemies/TankEnemy.tscn" id="7_bbnk3"]
-[ext_resource type="Theme" uid="uid://ba7c67458ixra" path="res://Themes/ButtonTheme.tres" id="7_ujmlm"]
-[ext_resource type="PackedScene" uid="uid://cccj7f8aytr3q" path="res://Scenes/health_wrench.tscn" id="8_bu5oh"]
-[ext_resource type="Texture2D" uid="uid://3dxt3811q2lb" path="res://Sprites/Other/TempBackground.png" id="9_kfe1h"]
-[ext_resource type="PackedScene" uid="uid://dglglgsyd4d42" path="res://Scenes/Enemies/HelicopterEnemy.tscn" id="11_qvxme"]
-[ext_resource type="PackedScene" uid="uid://byef8ktwjmjgf" path="res://Scenes/Enemies/JeepEnemy.tscn" id="12_uyn0h"]
-[ext_resource type="PackedScene" uid="uid://cyydxjwdu1qie" path="res://Scenes/Enemies/MotorCycleEnemy.tscn" id="13_456o8"]
-[ext_resource type="PackedScene" uid="uid://cwbsfs4xbsjwe" path="res://Scenes/Enemies/APCEnemy.tscn" id="14_06gjc"]
+[ext_resource type="PackedScene" uid="uid://45ixu3g78368" path="res://Scenes/Player.tscn" id="1_a4n6m"]
+[ext_resource type="Script" path="res://Scripts/FPSCounter.cs" id="2_1lxvt"]
+[ext_resource type="Script" path="res://Scripts/HUD.cs" id="3_1882r"]
+[ext_resource type="Script" path="res://Scripts/Other/ScrollingBG.cs" id="4_ybkni"]
+[ext_resource type="Texture2D" uid="uid://3dxt3811q2lb" path="res://Sprites/Other/TempBackground.png" id="5_ndd6s"]
+[ext_resource type="Theme" uid="uid://ba7c67458ixra" path="res://Themes/ButtonTheme.tres" id="6_hfxrm"]
+[ext_resource type="PackedScene" uid="uid://w2th2gtum5j3" path="res://Scenes/Player/PlayerHealthBar.tscn" id="7_fwpoe"]
+[ext_resource type="Script" path="res://Scripts/Enemies/EnemyGoal.cs" id="8_ti15m"]
+[ext_resource type="Script" path="res://Scripts/Managers/EnemySpawnManager.cs" id="9_vt1q6"]
+[ext_resource type="PackedScene" uid="uid://c0u00kdd17nye" path="res://Scenes/Enemies/TankEnemy.tscn" id="10_buvdf"]
+[ext_resource type="PackedScene" uid="uid://cccj7f8aytr3q" path="res://Scenes/health_wrench.tscn" id="11_m71mx"]
+[ext_resource type="PackedScene" uid="uid://cyydxjwdu1qie" path="res://Scenes/Enemies/MotorCycleEnemy.tscn" id="12_h552v"]
+[ext_resource type="PackedScene" uid="uid://byef8ktwjmjgf" path="res://Scenes/Enemies/JeepEnemy.tscn" id="13_g6dr8"]
+[ext_resource type="PackedScene" uid="uid://cwbsfs4xbsjwe" path="res://Scenes/Enemies/APCEnemy.tscn" id="14_bxsnq"]
+[ext_resource type="PackedScene" uid="uid://dglglgsyd4d42" path="res://Scenes/Enemies/HelicopterEnemy.tscn" id="15_53x5s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e3lg3"]
 size = Vector2(1200, 20)
 
 [node name="Main" type="Node2D"]
 
-[node name="Player" parent="." instance=ExtResource("1_hucya")]
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+
+[node name="Player" parent="." instance=ExtResource("1_a4n6m")]
 position = Vector2(600, 2250)
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
@@ -32,13 +35,13 @@ theme_override_font_sizes/normal_font_size = 60
 theme_override_font_sizes/bold_font_size = 0
 text = "60"
 tab_size = 6
-script = ExtResource("4_h0a7w")
+script = ExtResource("2_1lxvt")
 
 [node name="HUD" type="CanvasLayer" parent="."]
-script = ExtResource("3_0pg48")
+script = ExtResource("3_1882r")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="HUD"]
-script = ExtResource("5_ittir")
+script = ExtResource("4_ybkni")
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="HUD/ParallaxBackground"]
 motion_mirroring = Vector2(0, 4007)
@@ -47,7 +50,7 @@ motion_mirroring = Vector2(0, 4007)
 z_index = -5
 texture_repeat = 3
 position = Vector2(604, 1708)
-texture = ExtResource("9_kfe1h")
+texture = ExtResource("5_ndd6s")
 
 [node name="RestartButton" type="Button" parent="HUD"]
 anchors_preset = 8
@@ -61,7 +64,7 @@ offset_right = 284.0
 offset_bottom = 137.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("7_ujmlm")
+theme = ExtResource("6_hfxrm")
 theme_override_font_sizes/font_size = 100
 text = "Restart"
 
@@ -79,7 +82,7 @@ grow_vertical = 0
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="EmptyHealthBar" parent="HUD/HUDContainer/Control" instance=ExtResource("4_a2dk8")]
+[node name="EmptyHealthBar" parent="HUD/HUDContainer/Control" instance=ExtResource("7_fwpoe")]
 position = Vector2(200, 40)
 
 [node name="Score" type="RichTextLabel" parent="HUD/HUDContainer"]
@@ -101,7 +104,7 @@ fit_content = true
 
 [node name="EnemyGoal" type="Node2D" parent="."]
 position = Vector2(0, 2000)
-script = ExtResource("5_ge50q")
+script = ExtResource("8_ti15m")
 
 [node name="Area2D" type="Area2D" parent="EnemyGoal"]
 collision_layer = 7
@@ -112,11 +115,11 @@ position = Vector2(600, 10)
 shape = SubResource("RectangleShape2D_e3lg3")
 
 [node name="EnemySpawnManager" type="Node2D" parent="."]
-script = ExtResource("6_26fhw")
-baseEnemy = ExtResource("7_bbnk3")
-healtWrench = ExtResource("8_bu5oh")
-packedLandEnemeies = Array[PackedScene]([ExtResource("13_456o8"), ExtResource("12_uyn0h"), ExtResource("14_06gjc"), ExtResource("7_bbnk3")])
-packedAirEnemeies = Array[PackedScene]([ExtResource("11_qvxme")])
+script = ExtResource("9_vt1q6")
+baseEnemy = ExtResource("10_buvdf")
+healtWrench = ExtResource("11_m71mx")
+packedLandEnemeies = Array[PackedScene]([ExtResource("12_h552v"), ExtResource("13_g6dr8"), ExtResource("14_bxsnq"), ExtResource("10_buvdf")])
+packedAirEnemeies = Array[PackedScene]([ExtResource("15_53x5s")])
 spawnDelay = 4.0
 newEnemyTypeDelay = 15.0
 

@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cnjmsm5mstixr"]
+
+[ext_resource type="Script" path="res://Scripts/Managers/SceneManager.cs" id="1_h5mni"]
+[ext_resource type="Texture2D" uid="uid://bf5ih6txwudff" path="res://Sprites/Other/PleaseWaitSign.png" id="2_noqxg"]
+
+[node name="SceneManager" type="Node2D"]
+z_index = 10
+position = Vector2(-500, 0)
+script = ExtResource("1_h5mni")
+
+[node name="ScreenCover" type="Sprite2D" parent="."]
+top_level = true
+z_index = 10
+texture = ExtResource("2_noqxg")
+centered = false

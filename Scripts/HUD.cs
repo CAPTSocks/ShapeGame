@@ -8,6 +8,7 @@ public partial class HUD : CanvasLayer
 	private double timeElapsed = 0;
 	private Button restartButton;
 	private GM gmRef;
+	private SceneManager sceneManager; 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -16,6 +17,9 @@ public partial class HUD : CanvasLayer
 		restartButton = GetNode<Button>("RestartButton");
 		gmRef = (GM)GetNode("/root/Gm");
 		gmRef.ScoreUpdate += ChangeScore;
+
+		sceneManager = (SceneManager)GetNode("/root/SceneManager");
+
 		restartButton.Visible = false;
 	}
 
@@ -23,7 +27,6 @@ public partial class HUD : CanvasLayer
 	{
 		score += points;
 		scoreLabel.Text = "[center]" + score.ToString();
-		
 	}
 
 	private void EnableRestartButton()
@@ -33,7 +36,8 @@ public partial class HUD : CanvasLayer
 
 	private void RestartButtonPressed()
 	{
-		gmRef.RestartLevel();
+		restartButton.Visible = false;
+		sceneManager.RestartLevel();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -41,7 +45,7 @@ public partial class HUD : CanvasLayer
 	{
 		timeElapsed += delta;
 		TimeSpan time = TimeSpan.FromSeconds(timeElapsed);
-		string timeString = $"{(int)time.TotalMinutes}:{time.Seconds:00}";
+		string timeString = "[center]" + $"{(int)time.TotalMinutes}:{time.Seconds:00}";
 		timeText.Text = timeString;
 	}
 }
