@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Runtime.CompilerServices;
 
 public partial class HUD : CanvasLayer
 {
@@ -13,11 +14,11 @@ public partial class HUD : CanvasLayer
 	public override void _Ready()
 	{
 		timeText = GetNode<RichTextLabel>("HUDContainer/Time");
-		scoreLabel = GetNode<RichTextLabel>("HUDContainer/Score");
+		
 		restartButton = GetNode<Button>("RestartButton");
 		gmRef = (GM)GetNode("/root/Gm");
 		gmRef.ScoreUpdate += ChangeScore;
-
+		scoreLabel = GetNode<RichTextLabel>("HUDContainer/Score");
 		sceneManager = (SceneManager)GetNode("/root/SceneManager");
 
 		restartButton.Visible = false;
@@ -40,8 +41,13 @@ public partial class HUD : CanvasLayer
 		sceneManager.RestartLevel();
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+    public override void _ExitTree()
+    {
+       	gmRef.ScoreUpdate -= ChangeScore;
+    }
+
+    // Called every frame. 'delta' is the elapsed time since the previous frame.
+    public override void _Process(double delta)
 	{
 		timeElapsed += delta;
 		TimeSpan time = TimeSpan.FromSeconds(timeElapsed);

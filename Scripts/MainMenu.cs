@@ -3,34 +3,46 @@ using System;
 
 public partial class MainMenu : Control
 {
+    private Control quitPanel;
+    private Control screenCover;
+    private Control optionsPanel;
+
+
+    public override void _Ready()
+    {
+        screenCover = GetNode<Control>("ScreenCoverPanel");
+        quitPanel = GetNode<Control>("QuitPanel");
+        optionsPanel = GetNode<Control>("OptionsPanel");
+        screenCover.Visible = false;
+        quitPanel.Visible = false;
+        optionsPanel.Visible = false;
+    }
+
     private void PlayButtonPressed()
     {
         var sceneManager = (SceneManager)GetNode("/root/SceneManager");
         sceneManager.HandleLevelChange("main");
-        
-        // var newlevel = GD.Load<PackedScene>("res://Scenes/LevelScenes/main.tscn").Instantiate();
-        // GetParent().AddChild(newlevel);
-        // GetTree().CurrentScene = newlevel;
-        // QueueFree();
     }
 
     private void OptionsButtonPressed()
     {
-        GD.Print("Open options");
+       optionsPanel.Visible = true; 
     }
 
     private void QuitButtonPressed()
     {
-        GetTree().Quit(); 
+        screenCover.Visible = true; 
+        quitPanel.Visible = true;
     }
 
     private void NoButtonPressed()
     {
-        GD.Print("Close quit pop up");
+        screenCover.Visible = false; 
+        quitPanel.Visible = false;
     }
     
     private void YesButtonPressed()
     {
-        GD.Print("Close game");
+        GetTree().Quit();
     }
 }
