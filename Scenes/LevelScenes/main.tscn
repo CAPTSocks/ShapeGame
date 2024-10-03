@@ -1,8 +1,8 @@
 [gd_scene load_steps=17 format=3 uid="uid://bdf4pv8d5tark"]
 
 [ext_resource type="PackedScene" uid="uid://45ixu3g78368" path="res://Scenes/Player.tscn" id="1_a4n6m"]
-[ext_resource type="Script" path="res://Scripts/FPSCounter.cs" id="2_1lxvt"]
-[ext_resource type="Script" path="res://Scripts/HUD.cs" id="3_1882r"]
+[ext_resource type="Script" path="res://Scripts/Other/FPSCounter.cs" id="2_1lxvt"]
+[ext_resource type="Script" path="res://Scripts/UI/HUD.cs" id="3_1882r"]
 [ext_resource type="Script" path="res://Scripts/Other/ScrollingBG.cs" id="4_ybkni"]
 [ext_resource type="Texture2D" uid="uid://3dxt3811q2lb" path="res://Sprites/Other/TempBackground.png" id="5_ndd6s"]
 [ext_resource type="Theme" uid="uid://ba7c67458ixra" path="res://Themes/ButtonTheme.tres" id="6_hfxrm"]

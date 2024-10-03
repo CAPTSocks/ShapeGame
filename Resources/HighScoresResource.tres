@@ -1,0 +1,58 @@
+[gd_resource type="Resource" script_class="HighScoreResource" load_steps=13 format=3 uid="uid://d2pm6m46mawpe"]
+
+[ext_resource type="Script" path="res://Scripts/Resources/ScoreObject.cs" id="1_5jpf7"]
+[ext_resource type="Script" path="res://Scripts/Resources/HighScoreResource.cs" id="1_ache6"]
+
+[sub_resource type="Resource" id="Resource_a61ui"]
+script = ExtResource("1_5jpf7")
+name = "ABC"
+score = 0
+
+[sub_resource type="Resource" id="Resource_utvu8"]
+script = ExtResource("1_5jpf7")
+name = "ABC"
+score = 0
+
+[sub_resource type="Resource" id="Resource_nrvas"]
+script = ExtResource("1_5jpf7")
+name = "ABC"
+score = 0
+
+[sub_resource type="Resource" id="Resource_dp6wj"]
+script = ExtResource("1_5jpf7")
+name = "ABC"
+score = 0
+
+[sub_resource type="Resource" id="Resource_qv7w7"]
+script = ExtResource("1_5jpf7")
+name = "ABC"
+score = 0
+
+[sub_resource type="Resource" id="Resource_i34k0"]
+script = ExtResource("1_5jpf7")
+name = "ABC"
+score = 0
+
+[sub_resource type="Resource" id="Resource_15t1p"]
+script = ExtResource("1_5jpf7")
+name = "ABC"
+score = 0
+
+[sub_resource type="Resource" id="Resource_0a8w6"]
+script = ExtResource("1_5jpf7")
+name = "ABC"
+score = 0
+
+[sub_resource type="Resource" id="Resource_keymj"]
+script = ExtResource("1_5jpf7")
+name = "ABC"
+score = 0
+
+[sub_resource type="Resource" id="Resource_5hmnc"]
+script = ExtResource("1_5jpf7")
+name = "ABC"
+score = 0
+
+[resource]
+script = ExtResource("1_ache6")
+highScores = Array[Object]([SubResource("Resource_a61ui"), SubResource("Resource_utvu8"), SubResource("Resource_nrvas"), SubResource("Resource_dp6wj"), SubResource("Resource_qv7w7"), SubResource("Resource_i34k0"), SubResource("Resource_15t1p"), SubResource("Resource_0a8w6"), SubResource("Resource_keymj"), SubResource("Resource_5hmnc")])

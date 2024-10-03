@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://45ixu3g78368"]
 
-[ext_resource type="Script" path="res://Scripts/PlayerController.cs" id="1_dexna"]
+[ext_resource type="Script" path="res://Scripts/Player/PlayerController.cs" id="1_dexna"]
 [ext_resource type="PackedScene" uid="uid://bwrtu1fomx2qt" path="res://Scenes/Bullets/PlayerBullet.tscn" id="2_fkbem"]
 [ext_resource type="Texture2D" uid="uid://vnyepuwyc4ai" path="res://Sprites/Enemies/Helicopter/HelicopterBody.png" id="3_4163j"]
 [ext_resource type="Script" path="res://Scenes/PlayerHealthComponent.cs" id="4_jitfv"]
