@@ -19,6 +19,7 @@ public partial class EnemySpawnManager : Node
 	private RandomNumberGenerator random = new RandomNumberGenerator();
 	private Timer spawnTimer;
 	private Timer AddNewEnemyTimer;
+	private GM gmRef;
 
 	public override void _Ready()
 	{
@@ -43,6 +44,9 @@ public partial class EnemySpawnManager : Node
 
 		airSpawners.Add(leftAircraftSpawner);
 		airSpawners.Add(rightAircraftSpawner);
+
+		gmRef = (GM)GetTree().Root.GetNode("Gm");
+		gmRef.GameOver += GameOver;
 		//Dmitri is gay
 	}
 
@@ -145,7 +149,17 @@ public partial class EnemySpawnManager : Node
 		}
 	}
 
-	public override void _Process(double delta)
+	private void GameOver()
+	{ 
+		spawnTimer.Stop();
+	}
+
+    public override void _ExitTree()
+    {
+        gmRef.GameOver -= GameOver;
+    }
+
+    public override void _Process(double delta)
 	{
 
 	}

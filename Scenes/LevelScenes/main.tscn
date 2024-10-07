@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bdf4pv8d5tark"]
+[gd_scene load_steps=20 format=3 uid="uid://bdf4pv8d5tark"]
 
 [ext_resource type="PackedScene" uid="uid://45ixu3g78368" path="res://Scenes/Player.tscn" id="1_a4n6m"]
 [ext_resource type="Script" path="res://Scripts/Other/FPSCounter.cs" id="2_1lxvt"]
@@ -7,8 +7,11 @@
 [ext_resource type="Texture2D" uid="uid://3dxt3811q2lb" path="res://Sprites/Other/TempBackground.png" id="5_ndd6s"]
 [ext_resource type="Theme" uid="uid://ba7c67458ixra" path="res://Themes/ButtonTheme.tres" id="6_hfxrm"]
 [ext_resource type="PackedScene" uid="uid://w2th2gtum5j3" path="res://Scenes/Player/PlayerHealthBar.tscn" id="7_fwpoe"]
+[ext_resource type="PackedScene" uid="uid://cosisgwtbfn1a" path="res://Scenes/Menus/NewHighScorePanel.tscn" id="8_kx4wx"]
 [ext_resource type="Script" path="res://Scripts/Enemies/EnemyGoal.cs" id="8_ti15m"]
+[ext_resource type="PackedScene" uid="uid://c7udcdc156rxx" path="res://Scenes/Menus/HighScorePanel.tscn" id="9_rtsjb"]
 [ext_resource type="Script" path="res://Scripts/Managers/EnemySpawnManager.cs" id="9_vt1q6"]
+[ext_resource type="PackedScene" uid="uid://p4qnq84ymfra" path="res://Scenes/Menus/GameoverPanel.tscn" id="9_w6ndt"]
 [ext_resource type="PackedScene" uid="uid://c0u00kdd17nye" path="res://Scenes/Enemies/TankEnemy.tscn" id="10_buvdf"]
 [ext_resource type="PackedScene" uid="uid://cccj7f8aytr3q" path="res://Scenes/health_wrench.tscn" id="11_m71mx"]
 [ext_resource type="PackedScene" uid="uid://cyydxjwdu1qie" path="res://Scenes/Enemies/MotorCycleEnemy.tscn" id="12_h552v"]
@@ -26,6 +29,9 @@ anchor_mode = 0
 
 [node name="Player" parent="." instance=ExtResource("1_a4n6m")]
 position = Vector2(600, 2250)
+
+[node name="HealthComponent" parent="Player" index="3"]
+health = 10
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 offset_right = 153.0
@@ -101,6 +107,16 @@ bbcode_enabled = true
 text = "[center]1:00
 "
 fit_content = true
+
+[node name="GameoverPanel" parent="HUD" instance=ExtResource("9_w6ndt")]
+visible = false
+
+[node name="HighScorePanel" parent="HUD/GameoverPanel" instance=ExtResource("9_rtsjb")]
+visible = false
+layout_mode = 1
+
+[node name="NewHighScorePanel" parent="HUD" instance=ExtResource("8_kx4wx")]
+visible = false
 
 [node name="EnemyGoal" type="Node2D" parent="."]
 position = Vector2(0, 2000)

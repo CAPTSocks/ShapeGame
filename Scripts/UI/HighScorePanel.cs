@@ -14,7 +14,7 @@ public partial class HighScorePanel : Panel
         SetupPanel();
     }
 
-    private void SetupPanel()
+    public void SetupPanel()
     {
         for (int i = 0; i < highScoreResource.highScores.Count; i++)
         {
@@ -38,6 +38,12 @@ public partial class ScoreUIObjects : Node
 {
     public RichTextLabel name;
     public RichTextLabel score;
+}
+
+public partial class ScoreHolder : Node
+{
+    public string name;
+    public int score;
 }
 
 

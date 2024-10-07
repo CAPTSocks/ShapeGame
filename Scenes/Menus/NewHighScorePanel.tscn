@@ -1,0 +1,81 @@
+[gd_scene load_steps=4 format=3 uid="uid://cosisgwtbfn1a"]
+
+[ext_resource type="Theme" uid="uid://btisgsqj0h8ui" path="res://Themes/PanelTheme.tres" id="1_5xde4"]
+[ext_resource type="Script" path="res://Scripts/UI/NewHighScorePanel.cs" id="2_ns2cy"]
+[ext_resource type="Theme" uid="uid://ba7c67458ixra" path="res://Themes/ButtonTheme.tres" id="2_s0fcm"]
+
+[node name="NewHighScorePanel" type="Panel"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -600.0
+offset_top = -347.0
+offset_right = 601.0
+offset_bottom = 413.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_5xde4")
+script = ExtResource("2_ns2cy")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -357.0
+offset_top = -281.0
+offset_right = 357.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("2_s0fcm")
+theme_override_font_sizes/font_size = 100
+text = "Confirm Name"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+modulate = Color(0.867055, 0.365476, 0.101103, 1)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -2.0
+offset_top = -3.0
+offset_right = -2.0
+offset_bottom = 145.0
+grow_horizontal = 2
+theme_override_font_sizes/normal_font_size = 90
+bbcode_enabled = true
+text = "[center]New Highscore!"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 1.0
+offset_top = 119.0
+offset_right = 1.0
+offset_bottom = 267.0
+grow_horizontal = 2
+theme_override_font_sizes/normal_font_size = 70
+bbcode_enabled = true
+text = "[center]Enter Name"
+
+[node name="LineEdit" type="LineEdit" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -159.0
+offset_bottom = 54.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 150
+placeholder_text = "ABC"
+alignment = 1
+max_length = 3
+context_menu_enabled = false
+
+[connection signal="pressed" from="Button" to="." method="ConfirmName"]
