@@ -1,11 +1,12 @@
-[gd_scene load_steps=20 format=3 uid="uid://bdf4pv8d5tark"]
+[gd_scene load_steps=23 format=3 uid="uid://bdf4pv8d5tark"]
 
-[ext_resource type="PackedScene" uid="uid://45ixu3g78368" path="res://Scenes/Player.tscn" id="1_a4n6m"]
+[ext_resource type="PackedScene" uid="uid://45ixu3g78368" path="res://Scenes/Player/Player.tscn" id="1_a4n6m"]
+[ext_resource type="Script" path="res://Scripts/Player/PlayerSpawnPoint.cs" id="1_ddgiu"]
 [ext_resource type="Script" path="res://Scripts/Other/FPSCounter.cs" id="2_1lxvt"]
 [ext_resource type="Script" path="res://Scripts/UI/HUD.cs" id="3_1882r"]
 [ext_resource type="Script" path="res://Scripts/Other/ScrollingBG.cs" id="4_ybkni"]
 [ext_resource type="Texture2D" uid="uid://3dxt3811q2lb" path="res://Sprites/Other/TempBackground.png" id="5_ndd6s"]
-[ext_resource type="Theme" uid="uid://ba7c67458ixra" path="res://Themes/ButtonTheme.tres" id="6_hfxrm"]
+[ext_resource type="Theme" uid="uid://di6ij7v0qiges" path="res://Themes/StartButtonTheme.tres" id="6_8nj0h"]
 [ext_resource type="PackedScene" uid="uid://w2th2gtum5j3" path="res://Scenes/Player/PlayerHealthBar.tscn" id="7_fwpoe"]
 [ext_resource type="PackedScene" uid="uid://cosisgwtbfn1a" path="res://Scenes/Menus/NewHighScorePanel.tscn" id="8_kx4wx"]
 [ext_resource type="Script" path="res://Scripts/Enemies/EnemyGoal.cs" id="8_ti15m"]
@@ -14,7 +15,9 @@
 [ext_resource type="PackedScene" uid="uid://p4qnq84ymfra" path="res://Scenes/Menus/GameoverPanel.tscn" id="9_w6ndt"]
 [ext_resource type="PackedScene" uid="uid://c0u00kdd17nye" path="res://Scenes/Enemies/TankEnemy.tscn" id="10_buvdf"]
 [ext_resource type="PackedScene" uid="uid://cccj7f8aytr3q" path="res://Scenes/health_wrench.tscn" id="11_m71mx"]
+[ext_resource type="PackedScene" uid="uid://b4l1lj7tinmtv" path="res://Scenes/LevelScenes/main_menu.tscn" id="11_vb80m"]
 [ext_resource type="PackedScene" uid="uid://cyydxjwdu1qie" path="res://Scenes/Enemies/MotorCycleEnemy.tscn" id="12_h552v"]
+[ext_resource type="PackedScene" uid="uid://c8n4cqvi58r5s" path="res://Scenes/Menus/QuitPanel.tscn" id="13_8eih1"]
 [ext_resource type="PackedScene" uid="uid://byef8ktwjmjgf" path="res://Scenes/Enemies/JeepEnemy.tscn" id="13_g6dr8"]
 [ext_resource type="PackedScene" uid="uid://cwbsfs4xbsjwe" path="res://Scenes/Enemies/APCEnemy.tscn" id="14_bxsnq"]
 [ext_resource type="PackedScene" uid="uid://dglglgsyd4d42" path="res://Scenes/Enemies/HelicopterEnemy.tscn" id="15_53x5s"]
@@ -26,6 +29,10 @@ size = Vector2(1200, 20)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
+
+[node name="PlayerSpawnPoint" type="Node2D" parent="."]
+position = Vector2(600, 2250)
+script = ExtResource("1_ddgiu")
 
 [node name="Player" parent="." instance=ExtResource("1_a4n6m")]
 position = Vector2(600, 2250)
@@ -47,6 +54,7 @@ script = ExtResource("2_1lxvt")
 script = ExtResource("3_1882r")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="HUD"]
+scroll_ignore_camera_zoom = true
 script = ExtResource("4_ybkni")
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="HUD/ParallaxBackground"]
@@ -58,21 +66,17 @@ texture_repeat = 3
 position = Vector2(604, 1708)
 texture = ExtResource("5_ndd6s")
 
-[node name="RestartButton" type="Button" parent="HUD"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -284.0
-offset_top = -137.0
-offset_right = 284.0
-offset_bottom = 137.0
+[node name="StartLevelButton" type="Button" parent="HUD"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("6_hfxrm")
+theme = ExtResource("6_8nj0h")
 theme_override_font_sizes/font_size = 100
-text = "Restart"
+text = "Press To Start
+"
 
 [node name="HUDContainer" type="HBoxContainer" parent="HUD"]
 anchors_preset = 12
@@ -111,12 +115,16 @@ fit_content = true
 [node name="GameoverPanel" parent="HUD" instance=ExtResource("9_w6ndt")]
 visible = false
 
-[node name="HighScorePanel" parent="HUD/GameoverPanel" instance=ExtResource("9_rtsjb")]
-visible = false
-layout_mode = 1
-
 [node name="NewHighScorePanel" parent="HUD" instance=ExtResource("8_kx4wx")]
 visible = false
+
+[node name="MainMenu" parent="HUD" instance=ExtResource("11_vb80m")]
+visible = false
+
+[node name="HighScorePanel" parent="HUD" instance=ExtResource("9_rtsjb")]
+visible = false
+
+[node name="QuitPanel" parent="HUD" instance=ExtResource("13_8eih1")]
 
 [node name="EnemyGoal" type="Node2D" parent="."]
 position = Vector2(0, 2000)
@@ -161,9 +169,14 @@ wait_time = 15.0
 
 [connection signal="HealthChanged" from="Player/HealthComponent" to="HUD/HUDContainer/Control/EmptyHealthBar" method="OnPlayerHealthChanged"]
 [connection signal="PlayerDied" from="Player/HealthComponent" to="HUD" method="EnableRestartButton"]
-[connection signal="pressed" from="HUD/RestartButton" to="HUD" method="RestartButtonPressed"]
+[connection signal="pressed" from="HUD/StartLevelButton" to="HUD" method="StartGameButtonPressed"]
+[connection signal="pressed" from="HUD/GameoverPanel/VBoxContainer/Exit Game" to="HUD/MainMenu" method="QuitButtonPressed"]
+[connection signal="pressed" from="HUD/QuitPanel/YesButton" to="HUD/MainMenu" method="YesButtonPressed"]
+[connection signal="pressed" from="HUD/QuitPanel/NoButton" to="HUD/MainMenu" method="NoButtonPressed"]
 [connection signal="body_entered" from="EnemyGoal/Area2D" to="EnemyGoal" method="OnBodyEntered"]
 [connection signal="timeout" from="EnemySpawnManager/SpawnTimer" to="EnemySpawnManager" method="HandleSpawning"]
 [connection signal="timeout" from="EnemySpawnManager/SpawnTypeTimer" to="EnemySpawnManager" method="OnAddNewEnemyTimerTimeOut"]
 
 [editable path="Player"]
+[editable path="HUD/GameoverPanel"]
+[editable path="HUD/QuitPanel"]

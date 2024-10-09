@@ -7,12 +7,15 @@ public partial class GM : Node2D
 	private int score = 0;
 	private RichTextLabel scoreLabel;
 	private DumbAss dmitri = new DumbAss(); 
-	[Signal] public delegate void ScoreUpdateEventHandler (int points);
-	[Signal] public delegate void GameOverEventHandler ();
 	private HighScoreResource scores;
 	private int newScoreIndex;
 	private Panel gameoverPanel;
 	private Vector2 gameoverPanelStartPos; 
+
+	//Events
+	[Signal] public delegate void ScoreUpdateEventHandler (int points);
+	[Signal] public delegate void GameOverEventHandler();
+	[Signal] public delegate void StartGameEventHandler();
 
     public override void _Ready()
     {
@@ -24,6 +27,12 @@ public partial class GM : Node2D
 		ScoreUpdate += UpdateScore;
 
     }
+
+	public void StartTheGame()
+	{
+		EmitSignal(SignalName.StartGame);
+		GD.Print("Start Game ");
+	}
 
 	private void UpdateScore(int points)
 	{
@@ -47,7 +56,7 @@ public partial class GM : Node2D
 		//scores.highScores[newScoreIndex].score = score;
 		//scores.highScores[newScoreIndex].name = name; 
 		scores.UpdateScore(newScoreIndex, score, name);
-		HighScorePanel highscorePanel = GetParent().GetNode<HighScorePanel>("Main/HUD/GameoverPanel/HighScorePanel");
+		HighScorePanel highscorePanel = GetParent().GetNode<HighScorePanel>("Main/HUD/HighScorePanel");
 		highscorePanel.SetupPanel(); 
 		//GetParent().GetNode<Panel>("Main/HUD/HighScorePanel").Visible = true;
 	}

@@ -4,6 +4,6 @@
 
 [resource]
 script = ExtResource("1_df2bt")
-masterVolume = 0.657
-sfxVolume = 0.45
-musicVolume = 0.909
+masterVolume = 0.799
+sfxVolume = 1.0
+musicVolume = 1.0

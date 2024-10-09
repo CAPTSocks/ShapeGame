@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Text.Unicode;
 using Godot;
 
@@ -10,6 +11,7 @@ public partial class PlayerController : CharacterBody2D
 	private bool canMove = false;
 	private bool isDead = false;
 	private bool swipe = false;
+	private bool canInput = false;
 	private AnimationPlayer anim;
 	[Export]
 	private PackedScene bullet;
@@ -20,24 +22,38 @@ public partial class PlayerController : CharacterBody2D
 	[Export] private int bulletDamage = -10;
 	[Export] private float bulletSpeed = 1000;
 
-	private Timer shootTimer;
+	private Timer InputDelayTimer;
 	private Node2D bulletSpawn;
 	private int movePos = 0;
 	private PlayerHealthComponent healthComponentAccess;
+	private GM gmRef;
 
 	public override void _Ready()
 	{
-		shootTimer = GetNode<Timer>("ShootTimer");
+		InputDelayTimer = GetNode<Timer>("ShootTimer");
+		InputDelayTimer.WaitTime = 1f;
 		anim = GetNode<AnimationPlayer>("AnimationPlayer");
 		bulletSpawn = GetNode<Node2D>("BulletSpawn");
 		healthComponentAccess = GetNode<PlayerHealthComponent>("HealthComponent");
-
+		gmRef = GetTree().Root.GetNode<GM>("Gm");
 		healthComponentAccess.PlayerDied += PlayerDied;
+		gmRef.StartGame += StartGame;
+		canInput = false;
+	}
+
+	private void StartGame()
+	{
+		InputDelayTimer.Start();		
+	}
+
+	private void TimeOut()
+	{
+		canInput = true;
 	}
 
 	public override void _UnhandledInput(InputEvent @event)
 	{
-		if (@event is InputEventMouseButton press)
+		if (@event is InputEventMouseButton press && canInput)
 		{
 			if (press.IsActionPressed("Swipe"))
 			{
@@ -139,6 +155,11 @@ public partial class PlayerController : CharacterBody2D
 		}
 
 	}
+
+    public override void _ExitTree()
+    {
+        gmRef.StartGame -= StartGame;
+    }
 }
 
 

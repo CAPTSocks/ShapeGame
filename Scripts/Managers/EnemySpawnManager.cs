@@ -32,11 +32,11 @@ public partial class EnemySpawnManager : Node
 
 		spawnTimer = GetNode<Timer>("SpawnTimer");
 		spawnTimer.WaitTime = spawnDelay;
-		spawnTimer.Start();
+
 
 		AddNewEnemyTimer = GetNode<Timer>("SpawnTypeTimer");
 		AddNewEnemyTimer.WaitTime = newEnemyTypeDelay;
-		AddNewEnemyTimer.Start();
+		
 
 		landSpawners.Add(leftSpawner);
 		landSpawners.Add(middleSpawner);
@@ -47,7 +47,14 @@ public partial class EnemySpawnManager : Node
 
 		gmRef = (GM)GetTree().Root.GetNode("Gm");
 		gmRef.GameOver += GameOver;
+		gmRef.StartGame += StartSpawning;
 		//Dmitri is gay
+	}
+
+	private void StartSpawning()
+	{
+		spawnTimer.Start();
+		AddNewEnemyTimer.Start();
 	}
 
 	private void HandleSpawning()
@@ -157,6 +164,7 @@ public partial class EnemySpawnManager : Node
     public override void _ExitTree()
     {
         gmRef.GameOver -= GameOver;
+		gmRef.StartGame -= StartSpawning;
     }
 
     public override void _Process(double delta)

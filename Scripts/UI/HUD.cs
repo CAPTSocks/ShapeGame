@@ -7,21 +7,28 @@ public partial class HUD : CanvasLayer
 	private RichTextLabel timeText, scoreLabel;
 	private int score;
 	private double timeElapsed = 0;
-	private Button restartButton;
+	private Button StartLevelButton;
 	private GM gmRef;
-	private SceneManager sceneManager; 
+	private SceneManager sceneManager;
+	private bool startTime = false;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		timeText = GetNode<RichTextLabel>("HUDContainer/Time");
-		
-		restartButton = GetNode<Button>("RestartButton");
+
+		StartLevelButton = GetNode<Button>("StartLevelButton");
 		gmRef = (GM)GetNode("/root/Gm");
 		gmRef.ScoreUpdate += ChangeScore;
+		gmRef.StartGame += StartGame;
 		scoreLabel = GetNode<RichTextLabel>("HUDContainer/Score");
 		sceneManager = (SceneManager)GetNode("/root/SceneManager");
 
-		restartButton.Visible = false;
+		//restartButton.Visible = false;
+	}
+
+	private void StartGame()
+	{
+		startTime = true;
 	}
 
 	private void ChangeScore(int points)
@@ -32,26 +39,30 @@ public partial class HUD : CanvasLayer
 
 	private void EnableRestartButton()
 	{
-		restartButton.Visible = true;
+		//restartButton.Visible = true;
 	}
 
-	private void RestartButtonPressed()
+	private void StartGameButtonPressed()
 	{
-		restartButton.Visible = false;
-		sceneManager.RestartLevel();
+		gmRef.StartTheGame();
+		StartLevelButton.Visible = false;
 	}
 
-    public override void _ExitTree()
-    {
-       	gmRef.ScoreUpdate -= ChangeScore;
-    }
-
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(double delta)
+	public override void _ExitTree()
 	{
-		timeElapsed += delta;
-		TimeSpan time = TimeSpan.FromSeconds(timeElapsed);
-		string timeString = "[center]" + $"{(int)time.TotalMinutes}:{time.Seconds:00}";
-		timeText.Text = timeString;
+		gmRef.ScoreUpdate -= ChangeScore;
+		gmRef.StartGame -= StartGame;
+	}
+
+	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	public override void _Process(double delta)
+	{
+		if (startTime)
+		{
+			timeElapsed += delta;
+			TimeSpan time = TimeSpan.FromSeconds(timeElapsed);
+			string timeString = "[center]" + $"{(int)time.TotalMinutes}:{time.Seconds:00}";
+			timeText.Text = timeString;
+		}
 	}
 }

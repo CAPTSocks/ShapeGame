@@ -12,9 +12,9 @@ public partial class MainMenu : Control
     public override void _Ready()
     {
         screenCover = GetNode<Control>("ScreenCoverPanel");
-        quitPanel = GetNode<Control>("QuitPanel");
+        quitPanel = GetParent().GetNode<Control>("QuitPanel");
         optionsPanel = GetNode<Control>("OptionsPanel");
-        highScorePanel = GetNode<Control>("HighScorePanel");
+        highScorePanel = GetParent().GetNode<Control>("HighScorePanel");
         screenCover.Visible = false;
         quitPanel.Visible = false;
         optionsPanel.Visible = false;
@@ -23,8 +23,11 @@ public partial class MainMenu : Control
 
     private void PlayButtonPressed()
     {
-        var sceneManager = (SceneManager)GetNode("/root/SceneManager");
-        sceneManager.HandleLevelChange("main");
+        //var sceneManager = (SceneManager)GetNode("/root/SceneManager");
+        //sceneManager.HandleLevelChange("main");
+        var gmRef = (GM)GetNode("/root/Gm");
+        gmRef.StartTheGame();
+        Visible = false;
     }
 
     private void HighScoreButtonPressed()

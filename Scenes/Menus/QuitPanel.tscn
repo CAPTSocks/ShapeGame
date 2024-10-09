@@ -1,0 +1,48 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8n4cqvi58r5s"]
+
+[ext_resource type="Theme" uid="uid://btisgsqj0h8ui" path="res://Themes/Panels/PanelTheme.tres" id="1_86gmg"]
+
+[node name="QuitPanel" type="Panel"]
+visible = false
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -308.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_86gmg")
+
+[node name="Title" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -600.0
+offset_top = 40.0
+offset_right = 600.0
+offset_bottom = 201.0
+grow_horizontal = 2
+theme_override_font_sizes/normal_font_size = 70
+bbcode_enabled = true
+text = "[center]Are you sure you want to quit?"
+
+[node name="YesButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 272.0
+offset_right = 538.0
+offset_bottom = 493.0
+theme_override_font_sizes/font_size = 60
+text = "Yes"
+
+[node name="NoButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 654.0
+offset_top = 272.0
+offset_right = 1152.0
+offset_bottom = 493.0
+theme_override_font_sizes/font_size = 60
+text = "No
+"
