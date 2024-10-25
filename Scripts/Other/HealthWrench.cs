@@ -22,6 +22,7 @@ public partial class HealthWrench : CharacterBody2D
     public override void _PhysicsProcess(double delta)
     {
         Velocity = Vector2.Down * speed;
+        RotationDegrees += 150 * (float)delta; 
         MoveAndSlide(); 
     }
 }

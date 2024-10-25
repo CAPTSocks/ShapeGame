@@ -22,7 +22,8 @@ public partial class SceneManager : Node2D
         screenCoverStartPos = screenCover.Position;
 
         mainMenu = GetParent().GetNode<Control>("Main/HUD/MainMenu");
-        mainMenu.Visible = true; 
+        if (mainMenu != null)
+            mainMenu.Visible = true; 
     }
 
     public void HandleLevelChange(String levelName)

@@ -13,15 +13,8 @@ public partial class BaseBullet : CharacterBody2D
 
 	public override void _Ready()
 	{
-		//timer = GetNode<Timer>("Timer");
-		//  timer.Start();
-
+		
 	}
-
-	// private void OnTimerTimeout()
-	// {
-	// 	QueueFree();
-	// }
 
 	private void OnVisibleOnScreenNotifier2DScreenExited()
 	{

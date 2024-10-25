@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="SettingsResource" load_steps=2 format=3 uid="uid://drhqwhwirxkjc"]
+[gd_resource type="Resource" script_class="SettingsResource" load_steps=2 format=3 uid="uid://boshfi8c51cls"]
 
 [ext_resource type="Script" path="res://Scripts/Resources/Settings/SettingsResource.cs" id="1_df2bt"]
 
 [resource]
 script = ExtResource("1_df2bt")
-masterVolume = 0.799
+masterVolume = 1.0
 sfxVolume = 1.0
 musicVolume = 1.0

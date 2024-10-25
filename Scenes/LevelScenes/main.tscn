@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bdf4pv8d5tark"]
+[gd_scene load_steps=24 format=3 uid="uid://bdf4pv8d5tark"]
 
 [ext_resource type="PackedScene" uid="uid://45ixu3g78368" path="res://Scenes/Player/Player.tscn" id="1_a4n6m"]
 [ext_resource type="Script" path="res://Scripts/Player/PlayerSpawnPoint.cs" id="1_ddgiu"]
@@ -21,6 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://byef8ktwjmjgf" path="res://Scenes/Enemies/JeepEnemy.tscn" id="13_g6dr8"]
 [ext_resource type="PackedScene" uid="uid://cwbsfs4xbsjwe" path="res://Scenes/Enemies/APCEnemy.tscn" id="14_bxsnq"]
 [ext_resource type="PackedScene" uid="uid://dglglgsyd4d42" path="res://Scenes/Enemies/HelicopterEnemy.tscn" id="15_53x5s"]
+[ext_resource type="PackedScene" uid="uid://vr3gweuad43k" path="res://Scenes/Enemies/AATurretEnemy.tscn" id="21_kx8i6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e3lg3"]
 size = Vector2(1200, 20)
@@ -36,9 +37,6 @@ script = ExtResource("1_ddgiu")
 
 [node name="Player" parent="." instance=ExtResource("1_a4n6m")]
 position = Vector2(600, 2250)
-
-[node name="HealthComponent" parent="Player" index="3"]
-health = 10
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 offset_right = 153.0
@@ -115,6 +113,9 @@ fit_content = true
 [node name="GameoverPanel" parent="HUD" instance=ExtResource("9_w6ndt")]
 visible = false
 
+[node name="Replay" parent="HUD/GameoverPanel/VBoxContainer" index="0"]
+z_index = 0
+
 [node name="NewHighScorePanel" parent="HUD" instance=ExtResource("8_kx4wx")]
 visible = false
 
@@ -125,6 +126,7 @@ visible = false
 visible = false
 
 [node name="QuitPanel" parent="HUD" instance=ExtResource("13_8eih1")]
+visible = false
 
 [node name="EnemyGoal" type="Node2D" parent="."]
 position = Vector2(0, 2000)
@@ -142,7 +144,7 @@ shape = SubResource("RectangleShape2D_e3lg3")
 script = ExtResource("9_vt1q6")
 baseEnemy = ExtResource("10_buvdf")
 healtWrench = ExtResource("11_m71mx")
-packedLandEnemeies = Array[PackedScene]([ExtResource("12_h552v"), ExtResource("13_g6dr8"), ExtResource("14_bxsnq"), ExtResource("10_buvdf")])
+packedLandEnemeies = Array[PackedScene]([ExtResource("21_kx8i6"), ExtResource("12_h552v"), ExtResource("13_g6dr8"), ExtResource("14_bxsnq"), ExtResource("10_buvdf")])
 packedAirEnemeies = Array[PackedScene]([ExtResource("15_53x5s")])
 spawnDelay = 4.0
 newEnemyTypeDelay = 15.0

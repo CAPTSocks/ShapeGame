@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://Scripts/UI/OptionsPanel.cs" id="3_revs3"]
 [ext_resource type="Texture2D" uid="uid://bmack0j25kbwy" path="res://Sprites/UI/GrabberHighlighted.png" id="4_b5xdr"]
 [ext_resource type="StyleBox" uid="uid://3ems5xctcj2u" path="res://Themes/Slider/SliderFillStyle.tres" id="4_hi3ra"]
-[ext_resource type="Resource" uid="uid://drhqwhwirxkjc" path="res://Resources/SettingsResource.tres" id="4_q07hu"]
+[ext_resource type="Resource" uid="uid://boshfi8c51cls" path="res://Resources/SettingsResource.tres" id="4_q07hu"]
 [ext_resource type="PackedScene" uid="uid://c7udcdc156rxx" path="res://Scenes/Menus/HighScorePanel.tscn" id="9_8hjio"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r6ady"]

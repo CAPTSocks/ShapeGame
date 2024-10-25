@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://k3m50cxy4787"]
+
+[ext_resource type="Script" path="res://Scripts/Bullets/AAEnemyBullet.cs" id="1_43qx8"]
+[ext_resource type="Texture2D" uid="uid://ssl6eg4u5enu" path="res://Sprites/Other/Bullet.png" id="2_75avw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ryww1"]
+radius = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k2nar"]
+
+[node name="EnemyBullet" type="CharacterBody2D"]
+scale = Vector2(1.3, 1.3)
+script = ExtResource("1_43qx8")
+speed = 700.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ryww1")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0, 1, 0.516667, 1)
+scale = Vector2(0.904297, 0.904297)
+texture = ExtResource("2_75avw")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_k2nar")
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="OnTimerTimeout"]
+[connection signal="body_entered" from="Area2D" to="." method="OnBodyEntered"]
+[connection signal="screen_exited" from="VisibleOnScreenEnabler2D" to="." method="OnVisibleOnScreenNotifier2DScreenExited"]
