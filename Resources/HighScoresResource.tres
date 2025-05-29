@@ -15,43 +15,43 @@ score = 1595
 
 [sub_resource type="Resource" id="Resource_utvu8"]
 script = ExtResource("1_5jpf7")
-name = "[right]JIL"
-score = 110
+name = "[right]chi"
+score = 1200
 
 [sub_resource type="Resource" id="Resource_qv7w7"]
 script = ExtResource("1_5jpf7")
-name = "[right]JIL"
-score = 110
+name = "[right]him"
+score = 1175
 
 [sub_resource type="Resource" id="Resource_dp6wj"]
 script = ExtResource("1_5jpf7")
-name = "[right]JIL"
-score = 110
+name = "[right]mmm"
+score = 1150
 
 [sub_resource type="Resource" id="Resource_i34k0"]
 script = ExtResource("1_5jpf7")
-name = "[right]JIL"
-score = 110
+name = "[right]bub"
+score = 1135
 
 [sub_resource type="Resource" id="Resource_15t1p"]
 script = ExtResource("1_5jpf7")
-name = "[right]HGV"
-score = 65
+name = "[right]197"
+score = 1070
 
 [sub_resource type="Resource" id="Resource_0a8w6"]
 script = ExtResource("1_5jpf7")
-name = "[right]Jon"
-score = 25
+name = "[right]opp"
+score = 680
 
 [sub_resource type="Resource" id="Resource_keymj"]
 script = ExtResource("1_5jpf7")
-name = "[right]NEW"
-score = 25
+name = "[right]640"
+score = 640
 
 [sub_resource type="Resource" id="Resource_5hmnc"]
 script = ExtResource("1_5jpf7")
-name = "[right]ABC"
-score = 0
+name = "[right]kkk"
+score = 140
 
 [resource]
 script = ExtResource("1_ache6")

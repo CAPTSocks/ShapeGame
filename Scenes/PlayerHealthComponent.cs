@@ -26,7 +26,7 @@ public partial class PlayerHealthComponent : Node2D
 		if (!playerIsDead)
 		{
 			health += incrementAmount;
-			Mathf.Clamp(health, 0, maxHealth);
+			health = (int)Mathf.Clamp(health, 0, maxHealth);
 			EmitSignal(SignalName.HealthChanged, health);
 			if (health <= 0)
 			{
@@ -44,8 +44,8 @@ public partial class PlayerHealthComponent : Node2D
 		GD.Print("You Died");
 	}
 
-    public override void _ExitTree()
-    {
-        PlayerDied -= gmRef.gameOver;
-    }
+	public override void _ExitTree()
+	{
+		PlayerDied -= gmRef.gameOver;
+	}
 }

@@ -1,0 +1,91 @@
+[gd_scene load_steps=10 format=3 uid="uid://dfycu10p3o3ty"]
+
+[ext_resource type="Script" path="res://Scripts/Enemies/PlaneEnemy.cs" id="1_ioggi"]
+[ext_resource type="Texture2D" uid="uid://b5rexbop8abyk" path="res://Sprites/Enemies/Plane/PlaneSheet.png" id="3_fkxvk"]
+[ext_resource type="Script" path="res://Scripts/Enemies/EnemyHealthComponent.cs" id="4_7bfbr"]
+[ext_resource type="PackedScene" uid="uid://cirsht75r8hln" path="res://Scenes/Other/explosion.tscn" id="5_3iy51"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_v4g4e"]
+radius = 133.0
+height = 354.0
+
+[sub_resource type="Animation" id="Animation_trimk"]
+resource_name = "PlaneAnimation"
+length = 0.2
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_0ljkk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_ja5gd"]
+resource_name = "SotExplosion"
+step = 0.1
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ikced"]
+_data = {
+"PlaneAnimation": SubResource("Animation_trimk"),
+"RESET": SubResource("Animation_0ljkk"),
+"SotExplosion": SubResource("Animation_ja5gd")
+}
+
+[node name="PlaneEnemy" type="CharacterBody2D" groups=["Enemy"]]
+collision_layer = 2
+collision_mask = 2
+motion_mode = 1
+script = ExtResource("1_ioggi")
+Speed = 750.0
+shotDelay = 2.5
+
+[node name="Body" type="Sprite2D" parent="."]
+rotation = 3.14159
+texture = ExtResource("3_fkxvk")
+hframes = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_v4g4e")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.5
+
+[node name="HealthComp" type="Node2D" parent="."]
+script = ExtResource("4_7bfbr")
+health = 30
+hitColor = Color(1, 0, 0, 1)
+deathExplosion = ExtResource("5_3iy51")
+
+[node name="HitTimer" type="Timer" parent="HealthComp"]
+wait_time = 0.1
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ikced")
+}
+
+[connection signal="timeout" from="Timer" to="." method="TimeOut"]
+[connection signal="timeout" from="HealthComp/HitTimer" to="HealthComp" method="HitTimerOut"]

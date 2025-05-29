@@ -156,10 +156,8 @@ public partial class PlayerController : CharacterBody2D
 
 	}
 
-    public override void _ExitTree()
-    {
-        gmRef.StartGame -= StartGame;
-    }
+	public override void _ExitTree()
+	{
+		gmRef.StartGame -= StartGame;
+	}
 }
-
-

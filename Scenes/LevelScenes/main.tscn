@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bdf4pv8d5tark"]
+[gd_scene load_steps=25 format=3 uid="uid://bdf4pv8d5tark"]
 
 [ext_resource type="PackedScene" uid="uid://45ixu3g78368" path="res://Scenes/Player/Player.tscn" id="1_a4n6m"]
 [ext_resource type="Script" path="res://Scripts/Player/PlayerSpawnPoint.cs" id="1_ddgiu"]
@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://cwbsfs4xbsjwe" path="res://Scenes/Enemies/APCEnemy.tscn" id="14_bxsnq"]
 [ext_resource type="PackedScene" uid="uid://dglglgsyd4d42" path="res://Scenes/Enemies/HelicopterEnemy.tscn" id="15_53x5s"]
 [ext_resource type="PackedScene" uid="uid://vr3gweuad43k" path="res://Scenes/Enemies/AATurretEnemy.tscn" id="21_kx8i6"]
+[ext_resource type="PackedScene" uid="uid://dfycu10p3o3ty" path="res://Scenes/Enemies/PlaneEnemy.tscn" id="23_87okv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e3lg3"]
 size = Vector2(1200, 20)
@@ -168,6 +169,9 @@ position = Vector2(790, -351)
 
 [node name="SpawnTypeTimer" type="Timer" parent="EnemySpawnManager"]
 wait_time = 15.0
+
+[node name="Enemy" parent="." instance=ExtResource("23_87okv")]
+position = Vector2(336, 264)
 
 [connection signal="HealthChanged" from="Player/HealthComponent" to="HUD/HUDContainer/Control/EmptyHealthBar" method="OnPlayerHealthChanged"]
 [connection signal="PlayerDied" from="Player/HealthComponent" to="HUD" method="EnableRestartButton"]

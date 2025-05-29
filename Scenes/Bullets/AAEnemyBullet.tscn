@@ -1,12 +1,75 @@
-[gd_scene load_steps=5 format=3 uid="uid://k3m50cxy4787"]
+[gd_scene load_steps=9 format=3 uid="uid://k3m50cxy4787"]
 
 [ext_resource type="Script" path="res://Scripts/Bullets/AAEnemyBullet.cs" id="1_43qx8"]
 [ext_resource type="Texture2D" uid="uid://ssl6eg4u5enu" path="res://Sprites/Other/Bullet.png" id="2_75avw"]
+[ext_resource type="Texture2D" uid="uid://ca78i3yg7divn" path="res://Sprites/Enemies/AATurret/AAExplosion/AAExplosion-Sheet.png" id="3_17t8d"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ryww1"]
-radius = 1.0
+radius = 5.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_k2nar"]
+
+[sub_resource type="Animation" id="Animation_vu04l"]
+resource_name = "Explode"
+length = 0.54
+step = 0.03
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ExplosionSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.030303, 0.0606061, 0.0909091, 0.121212, 0.151515, 0.181818, 0.212121, 0.242424, 0.272727, 0.30303, 0.333333, 0.363636, 0.393939, 0.424242, 0.454545, 0.484848, 0.515152),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Area2D/CollisionShape2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.030303, 0.030403, 0.0606061, 0.0908091, 0.121212, 0.151515, 0.181818, 0.212121, 0.242424, 0.272727, 0.30303, 0.333333, 0.393939, 0.515152),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0.3, 0.3), Vector2(0.0651699, 0.0651699), Vector2(0.6, 0.6), Vector2(0.9, 0.9), Vector2(1.2, 1.2), Vector2(1.8, 1.8), Vector2(2.4, 2.4), Vector2(2.6, 2.6), Vector2(3, 3), Vector2(3.2, 3.2), Vector2(3.3, 3.3), Vector2(3.3, 3.3), Vector2(0.5, 0.5), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ja3jw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ExplosionSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Area2D/CollisionShape2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.1, 0.1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_urdcn"]
+_data = {
+"Explode": SubResource("Animation_vu04l"),
+"RESET": SubResource("Animation_ja3jw")
+}
 
 [node name="EnemyBullet" type="CharacterBody2D"]
 scale = Vector2(1.3, 1.3)
@@ -22,16 +85,29 @@ modulate = Color(0, 1, 0.516667, 1)
 scale = Vector2(0.904297, 0.904297)
 texture = ExtResource("2_75avw")
 
+[node name="ExplosionSprite" type="Sprite2D" parent="."]
+position = Vector2(0, 0.769231)
+scale = Vector2(2.3, 2.3)
+texture = ExtResource("3_17t8d")
+hframes = 19
+
 [node name="Timer" type="Timer" parent="."]
 wait_time = 5.0
 
 [node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, -1.53846)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(0.1, 0.1)
 shape = SubResource("CircleShape2D_k2nar")
 
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
 
-[connection signal="timeout" from="Timer" to="." method="OnTimerTimeout"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_urdcn")
+}
+
+[connection signal="timeout" from="Timer" to="." method="Timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="OnBodyEntered"]
 [connection signal="screen_exited" from="VisibleOnScreenEnabler2D" to="." method="OnVisibleOnScreenNotifier2DScreenExited"]

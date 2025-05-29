@@ -22,12 +22,11 @@ public partial class HUD : CanvasLayer
 		gmRef.StartGame += StartGame;
 		scoreLabel = GetNode<RichTextLabel>("HUDContainer/Score");
 		sceneManager = (SceneManager)GetNode("/root/SceneManager");
-
-		//restartButton.Visible = false;
 	}
 
 	private void StartGame()
 	{
+		score = 0;
 		startTime = true;
 	}
 

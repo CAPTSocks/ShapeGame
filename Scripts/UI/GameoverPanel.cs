@@ -17,7 +17,6 @@ public partial class GameoverPanel : Panel
     private void ReplayButton()
     {
         sceneManagerAccess.RestartLevelQuick();
-        
     }
 
     private void HighscoreButton()

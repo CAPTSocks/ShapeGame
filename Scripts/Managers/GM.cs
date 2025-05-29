@@ -5,6 +5,7 @@ using System.Reflection.Emit;
 public partial class GM : Node2D
 {
 	private int score = 0;
+	private int finalScore = 0;
 	private RichTextLabel scoreLabel;
 	private DumbAss dmitri = new DumbAss(); 
 	private HighScoreResource scores;
@@ -32,6 +33,7 @@ public partial class GM : Node2D
 	{
 		EmitSignal(SignalName.StartGame);
 		GD.Print("Start Game ");
+		score = 0;
 	}
 
 	private void UpdateScore(int points)
@@ -42,6 +44,7 @@ public partial class GM : Node2D
 	public void gameOver()
 	{
 		EmitSignal(SignalName.GameOver);
+		finalScore = score; 
 		gameoverPanel = GetParent().GetNode<Panel>("Main/HUD/GameoverPanel");
 		TweenGameoverPanel();
 		
@@ -55,7 +58,7 @@ public partial class GM : Node2D
 	{
 		//scores.highScores[newScoreIndex].score = score;
 		//scores.highScores[newScoreIndex].name = name; 
-		scores.UpdateScore(newScoreIndex, score, name);
+		scores.UpdateScore(newScoreIndex, finalScore, name);
 		HighScorePanel highscorePanel = GetParent().GetNode<HighScorePanel>("Main/HUD/HighScorePanel");
 		highscorePanel.SetupPanel(); 
 		//GetParent().GetNode<Panel>("Main/HUD/HighScorePanel").Visible = true;
@@ -67,7 +70,7 @@ public partial class GM : Node2D
 		gameoverPanel.Position -= new Vector2(gameoverPanel.Position.X , GetViewportRect().Size.Y);
         gameoverPanelStartPos = gameoverPanel.Position;
 		RichTextLabel scoreLabel = gameoverPanel.GetNode<RichTextLabel>("ScoreNumberLabel");
-		scoreLabel.Text = "[center]" + score.ToString();
+		scoreLabel.Text = "[center]" + finalScore.ToString();
 		gameoverPanel.Visible = true; 
 		Tween tween = GetTree().CreateTween();
         tween.TweenProperty(gameoverPanel, "position", Vector2.Zero, 0.5f);
@@ -75,12 +78,12 @@ public partial class GM : Node2D
 
 	private bool HandleHighScores()
 	{
-		if (score <= 0)
+		if (finalScore <= 0)
 			return false;
 
 		for (int i = 0; i < scores.highScores.Count; i++)
 		{
-			if (score > scores.highScores[i].score)
+			if (finalScore > scores.highScores[i].score)
 			{
 				newScoreIndex = i;
 				return true;
